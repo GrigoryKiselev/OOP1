@@ -29,10 +29,12 @@
         private void InitializeComponent()
         {
             this.picture = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Undo = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rbRectangle = new System.Windows.Forms.RadioButton();
             this.rbEllipse = new System.Windows.Forms.RadioButton();
+            this.rbRectangle = new System.Windows.Forms.RadioButton();
+            this.rbLine = new System.Windows.Forms.RadioButton();
+            this.Redo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -49,39 +51,27 @@
             this.picture.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picture_MouseMove);
             this.picture.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picture_MouseUp);
             // 
-            // button1
+            // Undo
             // 
-            this.button1.Location = new System.Drawing.Point(735, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.Undo.Location = new System.Drawing.Point(676, 21);
+            this.Undo.Name = "Undo";
+            this.Undo.Size = new System.Drawing.Size(75, 23);
+            this.Undo.TabIndex = 1;
+            this.Undo.Text = "Undo";
+            this.Undo.UseVisualStyleBackColor = true;
+            this.Undo.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.rbLine);
             this.groupBox1.Controls.Add(this.rbEllipse);
             this.groupBox1.Controls.Add(this.rbRectangle);
-            this.groupBox1.Location = new System.Drawing.Point(400, 11);
+            this.groupBox1.Location = new System.Drawing.Point(46, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(254, 39);
+            this.groupBox1.Size = new System.Drawing.Size(624, 38);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
-            // 
-            // rbRectangle
-            // 
-            this.rbRectangle.AutoSize = true;
-            this.rbRectangle.Checked = true;
-            this.rbRectangle.Location = new System.Drawing.Point(20, 16);
-            this.rbRectangle.Name = "rbRectangle";
-            this.rbRectangle.Size = new System.Drawing.Size(74, 17);
-            this.rbRectangle.TabIndex = 0;
-            this.rbRectangle.TabStop = true;
-            this.rbRectangle.Text = "Rectangle";
-            this.rbRectangle.UseVisualStyleBackColor = true;
-            this.rbRectangle.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // rbEllipse
             // 
@@ -93,13 +83,48 @@
             this.rbEllipse.Text = "Ellipse";
             this.rbEllipse.UseVisualStyleBackColor = true;
             // 
+            // rbRectangle
+            // 
+            this.rbRectangle.AutoSize = true;
+            this.rbRectangle.Checked = true;
+            this.rbRectangle.Location = new System.Drawing.Point(22, 16);
+            this.rbRectangle.Name = "rbRectangle";
+            this.rbRectangle.Size = new System.Drawing.Size(74, 17);
+            this.rbRectangle.TabIndex = 0;
+            this.rbRectangle.TabStop = true;
+            this.rbRectangle.Text = "Rectangle";
+            this.rbRectangle.UseVisualStyleBackColor = true;
+            this.rbRectangle.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            // 
+            // rbLine
+            // 
+            this.rbLine.AutoSize = true;
+            this.rbLine.Location = new System.Drawing.Point(193, 16);
+            this.rbLine.Name = "rbLine";
+            this.rbLine.Size = new System.Drawing.Size(45, 17);
+            this.rbLine.TabIndex = 2;
+            this.rbLine.TabStop = true;
+            this.rbLine.Text = "Line";
+            this.rbLine.UseVisualStyleBackColor = true;
+            this.rbLine.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged_1);
+            // 
+            // Redo
+            // 
+            this.Redo.Location = new System.Drawing.Point(757, 21);
+            this.Redo.Name = "Redo";
+            this.Redo.Size = new System.Drawing.Size(75, 23);
+            this.Redo.TabIndex = 3;
+            this.Redo.Text = "Redo";
+            this.Redo.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(855, 561);
+            this.Controls.Add(this.Redo);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.Undo);
             this.Controls.Add(this.picture);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -113,10 +138,12 @@
         #endregion
 
         private System.Windows.Forms.PictureBox picture;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Undo;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rbEllipse;
         private System.Windows.Forms.RadioButton rbRectangle;
+        private System.Windows.Forms.RadioButton rbLine;
+        private System.Windows.Forms.Button Redo;
     }
 }
 

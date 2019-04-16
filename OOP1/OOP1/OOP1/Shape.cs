@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,11 @@ namespace OOP1
 {
     class Shape
     {
-        public int x1, y1;
-        public int width;
-        public int height;
+        public int x1 { get; set; }
+        public int y1 { get; set; }
+        public int width { get; set; }
+        public int height { get; set; }
+        public List<int[]> pointList= new List<int[]>();
 
         public Shape(int x1, int y1, int width, int height)
         {

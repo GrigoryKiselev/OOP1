@@ -12,6 +12,12 @@ namespace OOP1
 {
     public partial class Form1 : Form
     {
+        List<Shape> shapeList = new List<Shape>();
+
+        
+
+        Shape shapeCurr;
+                       
         Line line1;
         Line line2;
         Line lineCurr;
@@ -19,6 +25,7 @@ namespace OOP1
         List<Rect> rectList = new List<Rect>();
 
         Rect rectCurr;
+
 
         bool mouseDown;
 
@@ -51,7 +58,7 @@ namespace OOP1
 
         private void Form1_Paint()
         {
-           
+                      
             g.FillEllipse(myBrush, new Rectangle(0, 0, 200, 300));
             g.DrawRectangle(myPen, 100, 100, 200, 200);
             Draw(line1);
@@ -59,6 +66,14 @@ namespace OOP1
             picture.Image = bmp;
            // g.Dispose();
           //  myBrush.Dispose();
+        }
+
+        private void Draw (Shape shape)
+        {
+            foreach(int[] pointList in shapeCurr.pointList)
+            {
+                g.DrawLine(myPen, pointList[0], pointList[1], pointList[2], pointList[3]);
+            }
         }
 
         private void Draw (Line line)
@@ -69,8 +84,19 @@ namespace OOP1
 
         private void Draw (Rect rectangle)
         {
-            Rectangle rect = new Rectangle(rectangle.x1, rectangle.y1, rectangle.width, rectangle.height);
-            g.DrawRectangle(myPen, rect);
+            foreach (int[] pointList in rectangle.pointList)
+            {
+                g.DrawLine(myPen, pointList[0], pointList[1], pointList[2], pointList[3]);
+            }
+            //Rectangle rect = new Rectangle(rectangle.x1, rectangle.y1, rectangle.width, rectangle.height);
+            //if (rbEllipse.Checked)
+            //{
+            //    g.DrawEllipse(myPen, rect);
+            //}
+            //else if (rbRectangle.Checked)
+            //{
+            //    g.DrawRectangle(myPen, rect);
+            //}
             picture.Image = bmp;
         }
 
@@ -80,9 +106,9 @@ namespace OOP1
             x1 = e.Location.X;
             y1 = e.Location.Y;
 
-            if (rbRectangle.Checked)
+            if (rbRectangle.Checked || rbEllipse.Checked)
             {
-                rectCurr = new Rect(0, x1, y1, 0, 0);
+                rectCurr = new Rect(x1, y1, 0, 0);
                 Draw(rectCurr);
             }
             else
@@ -100,10 +126,35 @@ namespace OOP1
                 x2 = e.Location.X;
                 y2 = e.Location.Y;
 
-                if (rbRectangle.Checked)
+                if (rbRectangle.Checked || rbEllipse.Checked)
                 {
-                    rectCurr.width = x2 - x1;
-                    rectCurr.height = y2 - y1;
+
+                    if (x2 < x1 && y2 > y1)
+                    {
+                        rectCurr.x1 = x2;
+                        rectCurr.Calculate(x2, y1, Math.Abs(x2 - x1), Math.Abs(y2 - y1));
+                    }
+                    if (x2 > x1 && y2 > y1)
+                    {
+                    //    rectCurr.x1 = x2;
+                        rectCurr.Calculate(x1, y1, Math.Abs(x2 - x1), Math.Abs(y2 - y1));
+                    }
+                    if (x2 < x1 && y2 < y1)
+                    {
+                        rectCurr.x1 = x2;
+                        rectCurr.y1 = y2;
+                        rectCurr.Calculate(x2, y2, Math.Abs(x2 - x1), Math.Abs(y2 - y1));
+                    }
+                    if (x2 > x1 && y2 < y1)
+                    {
+                        rectCurr.y1 = y2;
+                        rectCurr.Calculate(x1, y2, Math.Abs(x2 - x1), Math.Abs(y2 - y1));
+                    }
+
+                    rectCurr.width = Math.Abs(x2 - x1);
+                    rectCurr.height = Math.Abs(y2 - y1);
+
+                  //  rectCurr.Calculate(x1, y1, Math.Abs(x2 - x1), Math.Abs(y2 - y1));
 
                     DrawRects();
                     Draw(rectCurr);
@@ -128,14 +179,28 @@ namespace OOP1
             x2 = e.Location.X;
             y2 = e.Location.Y;
 
-            if (rbRectangle.Checked)
-            {
-                rectCurr.width = x2 - x1;
-                rectCurr.height = y2 - y1;
 
+            if (rbRectangle.Checked || rbEllipse.Checked)
+            {
+                if(x2 < x1)
+                {
+                    rectCurr.x1 = x2;
+                }
+
+                if (y2 < y1)
+                {
+                    rectCurr.y1 = y2;
+                }
+
+                rectCurr.width = Math.Abs(x2 - x1);
+                rectCurr.height = Math.Abs(y2 - y1);
+
+                DrawRects();
                 Draw(rectCurr);
 
                 rectList.Add(rectCurr);
+
+                shapeList.Add(rectCurr);
             }
             else
             {
@@ -173,6 +238,11 @@ namespace OOP1
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton1_CheckedChanged_1(object sender, EventArgs e)
         {
 
         }
