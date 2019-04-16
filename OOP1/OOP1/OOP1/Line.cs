@@ -3,21 +3,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace OOP1
 {
-    class Line
+    [Serializable]
+    class Line : Shape
     {
-        public int x1, y1;
-        public int x2, y2;
+        public new int x1;// { get { return x1; } set { Calculate(x1, y1, width, height); } }
+        public new int y1;// { get { return y1; } set { Calculate(x1, y1, width, height); } }
+        public new int width;// { get { return width; } set { Calculate(x1, y1, width, height); } }
+        public new int height;// { get { return height; } set { Calculate(x1, y1, width, height); } }
 
-        public Line(int x1, int y1, int x2, int y2)
+        public Line(int x1, int y1, int width, int height, Color color, int penWidth) : base(x1, y1, width, height, color, penWidth)
         {
+
             this.x1 = x1;
             this.y1 = y1;
-            this.x2 = x2;
-            this.y2 = y2;
-            
+            this.width = width;
+            this.height = height;
+            this.color = color;
+            this.penWidth = penWidth;
+
+            Calculate(this.x1, this.y1, this.width, this.height);
+        }
+
+        public override void Calculate(int x1, int y1, int width, int height)
+        {
+            pointList.Clear();
+            pointList.Add(new float[4] { x1, y1, x1 + width, y1 + height });
+        }
+
+        public override void Draw(int x1, int y1, int width, int height, Color color, int penWidth, Form1 form, Pen pen)
+        {
+            foreach (float[] pointL in pointList)
+            {
+                form.g.DrawLine(pen, pointL[0], pointL[1], pointL[2], pointL[3]);
+            }
+            form.GetPictureBox().Image = form.bmp;
         }
     }
 }

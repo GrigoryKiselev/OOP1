@@ -7,6 +7,7 @@ using System.Drawing;
 
 namespace OOP1
 {
+    [Serializable]
     class Rect : Shape
     {
         public new int x1;// { get { return x1; } set { Calculate(x1, y1, width, height); } }
@@ -14,12 +15,14 @@ namespace OOP1
         public new int width;// { get { return width; } set { Calculate(x1, y1, width, height); } }
         public new int height;// { get { return height; } set { Calculate(x1, y1, width, height); } }
 
-        public Rect(int x1 , int y1, int width, int height) : base(x1, y1, width, height)
+        public Rect(int x1, int y1, int width, int height, Color color, int penWidth) : base(x1, y1, width, height, color, penWidth)
         {
             this.x1 = x1;
             this.y1 = y1;
             this.width = width;
             this.height = height;
+            this.color = color;
+            this.penWidth = penWidth;
 
             Calculate(this.x1, this.y1, this.width, this.height);
         }
@@ -33,7 +36,7 @@ namespace OOP1
             pointList.Add(new float[4] { x1, y1 + height, x1 + width, y1 + height });
         }
 
-        public override void Draw(int x1, int y1, int width, int height, Form1 form, Pen pen)
+        public override void Draw(int x1, int y1, int width, int height, Color color, int penWidth, Form1 form, Pen pen)
         {
             foreach (float[] pointL in pointList)
             {
