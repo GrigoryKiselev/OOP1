@@ -31,10 +31,12 @@
             this.picture = new System.Windows.Forms.PictureBox();
             this.Undo = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbLine = new System.Windows.Forms.RadioButton();
             this.rbEllipse = new System.Windows.Forms.RadioButton();
             this.rbRectangle = new System.Windows.Forms.RadioButton();
-            this.rbLine = new System.Windows.Forms.RadioButton();
             this.Redo = new System.Windows.Forms.Button();
+            this.rbTriangle = new System.Windows.Forms.RadioButton();
+            this.rbRhombus = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -63,6 +65,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.rbRhombus);
+            this.groupBox1.Controls.Add(this.rbTriangle);
             this.groupBox1.Controls.Add(this.rbLine);
             this.groupBox1.Controls.Add(this.rbEllipse);
             this.groupBox1.Controls.Add(this.rbRectangle);
@@ -73,10 +77,22 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
             // 
+            // rbLine
+            // 
+            this.rbLine.AutoSize = true;
+            this.rbLine.Location = new System.Drawing.Point(524, 12);
+            this.rbLine.Name = "rbLine";
+            this.rbLine.Size = new System.Drawing.Size(45, 17);
+            this.rbLine.TabIndex = 2;
+            this.rbLine.TabStop = true;
+            this.rbLine.Text = "Line";
+            this.rbLine.UseVisualStyleBackColor = true;
+            this.rbLine.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged_1);
+            // 
             // rbEllipse
             // 
             this.rbEllipse.AutoSize = true;
-            this.rbEllipse.Location = new System.Drawing.Point(121, 16);
+            this.rbEllipse.Location = new System.Drawing.Point(443, 12);
             this.rbEllipse.Name = "rbEllipse";
             this.rbEllipse.Size = new System.Drawing.Size(55, 17);
             this.rbEllipse.TabIndex = 1;
@@ -96,18 +112,6 @@
             this.rbRectangle.UseVisualStyleBackColor = true;
             this.rbRectangle.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
-            // rbLine
-            // 
-            this.rbLine.AutoSize = true;
-            this.rbLine.Location = new System.Drawing.Point(193, 16);
-            this.rbLine.Name = "rbLine";
-            this.rbLine.Size = new System.Drawing.Size(45, 17);
-            this.rbLine.TabIndex = 2;
-            this.rbLine.TabStop = true;
-            this.rbLine.Text = "Line";
-            this.rbLine.UseVisualStyleBackColor = true;
-            this.rbLine.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged_1);
-            // 
             // Redo
             // 
             this.Redo.Location = new System.Drawing.Point(757, 21);
@@ -116,6 +120,28 @@
             this.Redo.TabIndex = 3;
             this.Redo.Text = "Redo";
             this.Redo.UseVisualStyleBackColor = true;
+            // 
+            // rbTriangle
+            // 
+            this.rbTriangle.AutoSize = true;
+            this.rbTriangle.Location = new System.Drawing.Point(102, 16);
+            this.rbTriangle.Name = "rbTriangle";
+            this.rbTriangle.Size = new System.Drawing.Size(63, 17);
+            this.rbTriangle.TabIndex = 3;
+            this.rbTriangle.TabStop = true;
+            this.rbTriangle.Text = "Triangle";
+            this.rbTriangle.UseVisualStyleBackColor = true;
+            // 
+            // rbRhombus
+            // 
+            this.rbRhombus.AutoSize = true;
+            this.rbRhombus.Location = new System.Drawing.Point(171, 16);
+            this.rbRhombus.Name = "rbRhombus";
+            this.rbRhombus.Size = new System.Drawing.Size(70, 17);
+            this.rbRhombus.TabIndex = 4;
+            this.rbRhombus.TabStop = true;
+            this.rbRhombus.Text = "Rhombus";
+            this.rbRhombus.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -144,6 +170,8 @@
         private System.Windows.Forms.RadioButton rbRectangle;
         private System.Windows.Forms.RadioButton rbLine;
         private System.Windows.Forms.Button Redo;
+        private System.Windows.Forms.RadioButton rbTriangle;
+        private System.Windows.Forms.RadioButton rbRhombus;
     }
 }
 

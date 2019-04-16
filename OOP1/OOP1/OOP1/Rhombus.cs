@@ -7,15 +7,16 @@ using System.Drawing;
 
 namespace OOP1
 {
-    class Rect : Shape
+    class Rhombus : Shape
     {
         public new int x1;// { get { return x1; } set { Calculate(x1, y1, width, height); } }
         public new int y1;// { get { return y1; } set { Calculate(x1, y1, width, height); } }
         public new int width;// { get { return width; } set { Calculate(x1, y1, width, height); } }
         public new int height;// { get { return height; } set { Calculate(x1, y1, width, height); } }
 
-        public Rect(int x1 , int y1, int width, int height) : base(x1, y1, width, height)
+        public Rhombus(int x1, int y1, int width, int height) : base(x1, y1, width, height)
         {
+
             this.x1 = x1;
             this.y1 = y1;
             this.width = width;
@@ -27,10 +28,10 @@ namespace OOP1
         public override void Calculate(int x1, int y1, int width, int height)
         {
             pointList.Clear();
-            pointList.Add(new float[4] { x1, y1, x1, y1 + height });
-            pointList.Add(new float[4] { x1, y1, x1 + width, y1 });
-            pointList.Add(new float[4] { x1 + width, y1, x1 + width, y1 + height });
-            pointList.Add(new float[4] { x1, y1 + height, x1 + width, y1 + height });
+            pointList.Add(new float[4] { x1 + (width / 2), y1         , x1 + width, y1 + (height/2) });
+            pointList.Add(new float[4] { x1 + width, y1 + (height / 2), x1 + (width / 2), y1 + height });
+            pointList.Add(new float[4] { x1 + (width / 2), y1 + height, x1, y1 + (height/2) });
+            pointList.Add(new float[4] { x1, y1 + (height / 2), x1 + (width / 2), y1 });
         }
 
         public override void Draw(int x1, int y1, int width, int height, Form1 form, Pen pen)

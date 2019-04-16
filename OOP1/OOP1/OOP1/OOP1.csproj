@@ -57,6 +57,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rect.cs" />
+    <Compile Include="Rhombus.cs" />
     <Compile Include="Shape.cs" />
     <Compile Include="Triangle.cs" />
     <EmbeddedResource Include="Form1.resx">

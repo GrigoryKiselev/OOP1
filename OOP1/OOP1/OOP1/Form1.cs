@@ -14,8 +14,6 @@ namespace OOP1
     {
         List<Shape> shapeList = new List<Shape>();
 
-        
-
         Shape shapeCurr;
                        
         Line line1;
@@ -26,11 +24,15 @@ namespace OOP1
 
         Rect rectCurr;
 
+        public PictureBox GetPictureBox()
+        {
+            return picture;
+        }
 
         bool mouseDown;
 
-        Bitmap bmp;
-        Graphics g;
+        public Bitmap bmp { get; set; }
+        public Graphics g { get; set; }
         SolidBrush myBrush;
         Pen myPen;
 
@@ -68,23 +70,23 @@ namespace OOP1
           //  myBrush.Dispose();
         }
 
-        private void Draw (Shape shape)
-        {
-            foreach(int[] pointList in shapeCurr.pointList)
-            {
-                g.DrawLine(myPen, pointList[0], pointList[1], pointList[2], pointList[3]);
-            }
-        }
+        //private void Draw (Shape shape)
+        //{
+        //    foreach(float[] pointList in shapeCurr.pointList)
+        //    {
+        //        g.DrawLine(myPen, pointList[0], pointList[1], pointList[2], pointList[3]);
+        //    }
+        //}
 
-        private void Draw (Line line)
+        private void Draw(Line line)
         {
             g.DrawLine(myPen, line.x1, line.y1, line.x2, line.y2);
             picture.Image = bmp;
         }
 
-        private void Draw (Rect rectangle)
+        private void Draw(Rect rectangle)
         {
-            foreach (int[] pointList in rectangle.pointList)
+            foreach (float[] pointList in rectangle.pointList)
             {
                 g.DrawLine(myPen, pointList[0], pointList[1], pointList[2], pointList[3]);
             }
@@ -106,10 +108,18 @@ namespace OOP1
             x1 = e.Location.X;
             y1 = e.Location.Y;
 
-            if (rbRectangle.Checked || rbEllipse.Checked)
+            if (rbRectangle.Checked )
             {
-                rectCurr = new Rect(x1, y1, 0, 0);
-                Draw(rectCurr);
+                shapeCurr = new Rect(x1, y1, 0, 0);
+                shapeCurr.Draw(x1, y1, 0, 0, this, myPen);
+            }
+            else if(rbTriangle.Checked)
+            {
+                shapeCurr = new Triangle(x1, y1, 0, 0);
+            }
+            else if(rbRhombus.Checked)
+            {
+                shapeCurr = new Rhombus(x1, y1, 0, 0);
             }
             else
             {
@@ -126,38 +136,39 @@ namespace OOP1
                 x2 = e.Location.X;
                 y2 = e.Location.Y;
 
-                if (rbRectangle.Checked || rbEllipse.Checked)
+                if (rbRectangle.Checked || rbTriangle.Checked || rbRhombus.Checked)
                 {
 
                     if (x2 < x1 && y2 > y1)
                     {
-                        rectCurr.x1 = x2;
-                        rectCurr.Calculate(x2, y1, Math.Abs(x2 - x1), Math.Abs(y2 - y1));
+                        shapeCurr.x1 = x2;
+                        shapeCurr.Calculate(x2, y1, Math.Abs(x2 - x1), Math.Abs(y2 - y1));
                     }
                     if (x2 > x1 && y2 > y1)
                     {
-                    //    rectCurr.x1 = x2;
-                        rectCurr.Calculate(x1, y1, Math.Abs(x2 - x1), Math.Abs(y2 - y1));
+                        //    rectCurr.x1 = x2;
+                        shapeCurr.Calculate(x1, y1, Math.Abs(x2 - x1), Math.Abs(y2 - y1));
                     }
                     if (x2 < x1 && y2 < y1)
                     {
-                        rectCurr.x1 = x2;
-                        rectCurr.y1 = y2;
-                        rectCurr.Calculate(x2, y2, Math.Abs(x2 - x1), Math.Abs(y2 - y1));
+                        shapeCurr.x1 = x2;
+                        shapeCurr.y1 = y2;
+                        shapeCurr.Calculate(x2, y2, Math.Abs(x2 - x1), Math.Abs(y2 - y1));
                     }
                     if (x2 > x1 && y2 < y1)
                     {
-                        rectCurr.y1 = y2;
-                        rectCurr.Calculate(x1, y2, Math.Abs(x2 - x1), Math.Abs(y2 - y1));
+                        shapeCurr.y1 = y2;
+                        shapeCurr.Calculate(x1, y2, Math.Abs(x2 - x1), Math.Abs(y2 - y1));
                     }
 
-                    rectCurr.width = Math.Abs(x2 - x1);
-                    rectCurr.height = Math.Abs(y2 - y1);
+                    shapeCurr.width = Math.Abs(x2 - x1);
+                    shapeCurr.height = Math.Abs(y2 - y1);
 
-                  //  rectCurr.Calculate(x1, y1, Math.Abs(x2 - x1), Math.Abs(y2 - y1));
+                    //  rectCurr.Calculate(x1, y1, Math.Abs(x2 - x1), Math.Abs(y2 - y1));
 
-                    DrawRects();
-                    Draw(rectCurr);
+                    //DrawRects();
+                    DrawShapes();
+                    shapeCurr.Draw(x1, y1, 0, 0, this, myPen);
                 }
                 else
                 {
@@ -180,27 +191,28 @@ namespace OOP1
             y2 = e.Location.Y;
 
 
-            if (rbRectangle.Checked || rbEllipse.Checked)
+            if (rbRectangle.Checked || rbTriangle.Checked || rbRhombus.Checked)
             {
                 if(x2 < x1)
                 {
-                    rectCurr.x1 = x2;
+                    shapeCurr.x1 = x2;
                 }
 
                 if (y2 < y1)
                 {
-                    rectCurr.y1 = y2;
+                    shapeCurr.y1 = y2;
                 }
 
-                rectCurr.width = Math.Abs(x2 - x1);
-                rectCurr.height = Math.Abs(y2 - y1);
+                shapeCurr.width = Math.Abs(x2 - x1);
+                shapeCurr.height = Math.Abs(y2 - y1);
 
-                DrawRects();
-                Draw(rectCurr);
+                DrawShapes();
+                //DrawRects();
+                shapeCurr.Draw(x1, y1, 0, 0, this, myPen);
 
-                rectList.Add(rectCurr);
+             //   rectList.Add(rectCurr);
 
-                shapeList.Add(rectCurr);
+                shapeList.Add(shapeCurr);
             }
             else
             {
@@ -227,14 +239,23 @@ namespace OOP1
             g.Clear(Color.White);
             foreach(Rect rect in rectList)
             {
-                Draw(rect);
+                rect.Draw(x1, y1, 0, 0, this, myPen);
+            }
+        }
+
+        public void DrawShapes()
+        {
+            g.Clear(Color.White);
+            foreach (Shape shape in shapeList)
+            {
+                shape.Draw(x1, y1, 0, 0, this, myPen);
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            lineList.RemoveAt(lineList.Count - 1);
-            DrawLines();
+            shapeList.RemoveAt(shapeList.Count - 1);
+            DrawShapes();
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)

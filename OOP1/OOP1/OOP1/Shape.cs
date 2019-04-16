@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace OOP1
 {
@@ -13,7 +14,7 @@ namespace OOP1
         public int y1 { get; set; }
         public int width { get; set; }
         public int height { get; set; }
-        public List<int[]> pointList= new List<int[]>();
+        public List<float[]> pointList= new List<float[]>();
 
         public Shape(int x1, int y1, int width, int height)
         {
@@ -22,5 +23,9 @@ namespace OOP1
             this.width = width;
             this.height = height;
         }
+
+        public virtual void Calculate(int x1, int y1, int width, int height) { }
+
+        public virtual void Draw(int x1, int y1, int width, int height, Form1 form, Pen pen) { }
     }
 }
