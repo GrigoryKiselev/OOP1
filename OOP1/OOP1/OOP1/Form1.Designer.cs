@@ -29,19 +29,20 @@
         private void InitializeComponent()
         {
             this.picture = new System.Windows.Forms.PictureBox();
-            this.Undo = new System.Windows.Forms.Button();
+            this.btnUndo = new System.Windows.Forms.Button();
             this.gbFigures = new System.Windows.Forms.GroupBox();
+            this.rbStar = new System.Windows.Forms.RadioButton();
+            this.rbPentagon = new System.Windows.Forms.RadioButton();
             this.rbRhombus = new System.Windows.Forms.RadioButton();
             this.rbTriangle = new System.Windows.Forms.RadioButton();
             this.rbLine = new System.Windows.Forms.RadioButton();
             this.rbEllipse = new System.Windows.Forms.RadioButton();
             this.rbRectangle = new System.Windows.Forms.RadioButton();
-            this.Redo = new System.Windows.Forms.Button();
+            this.btnRedo = new System.Windows.Forms.Button();
             this.tbWidth = new System.Windows.Forms.TrackBar();
             this.btnChooseColor = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.rbPentagon = new System.Windows.Forms.RadioButton();
-            this.rbStar = new System.Windows.Forms.RadioButton();
+            this.cbShift = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.gbFigures.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbWidth)).BeginInit();
@@ -59,15 +60,15 @@
             this.picture.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picture_MouseMove);
             this.picture.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picture_MouseUp);
             // 
-            // Undo
+            // btnUndo
             // 
-            this.Undo.Location = new System.Drawing.Point(676, 21);
-            this.Undo.Name = "Undo";
-            this.Undo.Size = new System.Drawing.Size(75, 23);
-            this.Undo.TabIndex = 1;
-            this.Undo.Text = "Undo";
-            this.Undo.UseVisualStyleBackColor = true;
-            this.Undo.Click += new System.EventHandler(this.button1_Click);
+            this.btnUndo.Location = new System.Drawing.Point(676, 21);
+            this.btnUndo.Name = "btnUndo";
+            this.btnUndo.Size = new System.Drawing.Size(75, 23);
+            this.btnUndo.TabIndex = 1;
+            this.btnUndo.Text = "Undo";
+            this.btnUndo.UseVisualStyleBackColor = true;
+            this.btnUndo.Click += new System.EventHandler(this.button1_Click);
             // 
             // gbFigures
             // 
@@ -84,6 +85,29 @@
             this.gbFigures.TabIndex = 2;
             this.gbFigures.TabStop = false;
             this.gbFigures.Text = "Figures";
+            // 
+            // rbStar
+            // 
+            this.rbStar.AutoSize = true;
+            this.rbStar.Location = new System.Drawing.Point(436, 16);
+            this.rbStar.Name = "rbStar";
+            this.rbStar.Size = new System.Drawing.Size(44, 17);
+            this.rbStar.TabIndex = 8;
+            this.rbStar.TabStop = true;
+            this.rbStar.Text = "Star";
+            this.rbStar.UseVisualStyleBackColor = true;
+            this.rbStar.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged_2);
+            // 
+            // rbPentagon
+            // 
+            this.rbPentagon.AutoSize = true;
+            this.rbPentagon.Location = new System.Drawing.Point(359, 16);
+            this.rbPentagon.Name = "rbPentagon";
+            this.rbPentagon.Size = new System.Drawing.Size(71, 17);
+            this.rbPentagon.TabIndex = 7;
+            this.rbPentagon.TabStop = true;
+            this.rbPentagon.Text = "Pentagon";
+            this.rbPentagon.UseVisualStyleBackColor = true;
             // 
             // rbRhombus
             // 
@@ -142,14 +166,15 @@
             this.rbRectangle.UseVisualStyleBackColor = true;
             this.rbRectangle.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
-            // Redo
+            // btnRedo
             // 
-            this.Redo.Location = new System.Drawing.Point(757, 21);
-            this.Redo.Name = "Redo";
-            this.Redo.Size = new System.Drawing.Size(75, 23);
-            this.Redo.TabIndex = 3;
-            this.Redo.Text = "Redo";
-            this.Redo.UseVisualStyleBackColor = true;
+            this.btnRedo.Location = new System.Drawing.Point(757, 21);
+            this.btnRedo.Name = "btnRedo";
+            this.btnRedo.Size = new System.Drawing.Size(75, 23);
+            this.btnRedo.TabIndex = 3;
+            this.btnRedo.Text = "Redo";
+            this.btnRedo.UseVisualStyleBackColor = true;
+            this.btnRedo.Click += new System.EventHandler(this.btnRedo_Click);
             // 
             // tbWidth
             // 
@@ -180,40 +205,28 @@
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // rbPentagon
+            // cbShift
             // 
-            this.rbPentagon.AutoSize = true;
-            this.rbPentagon.Location = new System.Drawing.Point(359, 16);
-            this.rbPentagon.Name = "rbPentagon";
-            this.rbPentagon.Size = new System.Drawing.Size(71, 17);
-            this.rbPentagon.TabIndex = 7;
-            this.rbPentagon.TabStop = true;
-            this.rbPentagon.Text = "Pentagon";
-            this.rbPentagon.UseVisualStyleBackColor = true;
-            // 
-            // rbStar
-            // 
-            this.rbStar.AutoSize = true;
-            this.rbStar.Location = new System.Drawing.Point(436, 16);
-            this.rbStar.Name = "rbStar";
-            this.rbStar.Size = new System.Drawing.Size(44, 17);
-            this.rbStar.TabIndex = 8;
-            this.rbStar.TabStop = true;
-            this.rbStar.Text = "Star";
-            this.rbStar.UseVisualStyleBackColor = true;
-            this.rbStar.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged_2);
+            this.cbShift.AutoSize = true;
+            this.cbShift.Location = new System.Drawing.Point(14, 268);
+            this.cbShift.Name = "cbShift";
+            this.cbShift.Size = new System.Drawing.Size(47, 17);
+            this.cbShift.TabIndex = 7;
+            this.cbShift.Text = "Shift";
+            this.cbShift.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(855, 561);
+            this.Controls.Add(this.cbShift);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.btnChooseColor);
             this.Controls.Add(this.tbWidth);
-            this.Controls.Add(this.Redo);
+            this.Controls.Add(this.btnRedo);
             this.Controls.Add(this.gbFigures);
-            this.Controls.Add(this.Undo);
+            this.Controls.Add(this.btnUndo);
             this.Controls.Add(this.picture);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -229,12 +242,12 @@
         #endregion
 
         private System.Windows.Forms.PictureBox picture;
-        private System.Windows.Forms.Button Undo;
+        private System.Windows.Forms.Button btnUndo;
         private System.Windows.Forms.GroupBox gbFigures;
         private System.Windows.Forms.RadioButton rbEllipse;
         private System.Windows.Forms.RadioButton rbRectangle;
         private System.Windows.Forms.RadioButton rbLine;
-        private System.Windows.Forms.Button Redo;
+        private System.Windows.Forms.Button btnRedo;
         private System.Windows.Forms.RadioButton rbTriangle;
         private System.Windows.Forms.RadioButton rbRhombus;
         private System.Windows.Forms.TrackBar tbWidth;
@@ -242,6 +255,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.RadioButton rbPentagon;
         private System.Windows.Forms.RadioButton rbStar;
+        private System.Windows.Forms.CheckBox cbShift;
     }
 }
 

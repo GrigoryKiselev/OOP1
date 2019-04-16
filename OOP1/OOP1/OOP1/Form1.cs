@@ -16,6 +16,7 @@ namespace OOP1
     public partial class Form1 : Form
     {
         List<Shape> shapeList = new List<Shape>();
+        List<Shape> shapeListBuf = new List<Shape>();
 
         
 
@@ -34,6 +35,7 @@ namespace OOP1
         }
 
         bool mouseDown;
+        bool isShiftPressed;
 
         public Bitmap bmp { get; set; }
         public Graphics g { get; set; }
@@ -190,6 +192,18 @@ namespace OOP1
                     shapeCurr.width = Math.Abs(x2 - x1);
                     shapeCurr.height = Math.Abs(y2 - y1);
 
+                    if (cbShift.Checked)
+                    {
+                        if(shapeCurr.width > shapeCurr.height)
+                        {
+                            shapeCurr.width = shapeCurr.height;
+                        }
+                        else
+                        {
+                            shapeCurr.height = shapeCurr.width;
+                        }
+                    }
+
                     //  rectCurr.Calculate(x1, y1, Math.Abs(x2 - x1), Math.Abs(y2 - y1));
 
                     //DrawRects();
@@ -270,8 +284,24 @@ namespace OOP1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            shapeList.RemoveAt(shapeList.Count - 1);
-            DrawShapes();
+            try
+            {
+                shapeListBuf.Add(shapeList[shapeList.Count - 1]);
+                shapeList.RemoveAt(shapeList.Count - 1);
+                DrawShapes();
+            }
+            catch { }
+        }
+
+        private void btnRedo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                shapeList.Add(shapeListBuf[shapeListBuf.Count - 1]);
+                shapeListBuf.RemoveAt(shapeListBuf.Count - 1);
+                DrawShapes();
+            }
+            catch { }
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -321,5 +351,7 @@ namespace OOP1
         {
 
         }
+
+        
     }
 }
