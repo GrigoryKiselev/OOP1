@@ -8,3 +8,13 @@ D:\4курс\ООП\Lab1\OOP1\OOP1\OOP1\obj\Debug\OOP1.csproj.GenerateResource.c
 D:\4курс\ООП\Lab1\OOP1\OOP1\OOP1\obj\Debug\OOP1.csproj.CoreCompileInputs.cache
 D:\4курс\ООП\Lab1\OOP1\OOP1\OOP1\obj\Debug\OOP1.exe
 D:\4курс\ООП\Lab1\OOP1\OOP1\OOP1\obj\Debug\OOP1.pdb
+C:\temp\OOP1-master\OOP1\OOP1\OOP1\bin\Debug\OOP1.exe.config
+C:\temp\OOP1-master\OOP1\OOP1\OOP1\bin\Debug\OOP1.exe
+C:\temp\OOP1-master\OOP1\OOP1\OOP1\bin\Debug\OOP1.pdb
+C:\temp\OOP1-master\OOP1\OOP1\OOP1\obj\Debug\OOP1.csprojAssemblyReference.cache
+C:\temp\OOP1-master\OOP1\OOP1\OOP1\obj\Debug\OOP1.Form1.resources
+C:\temp\OOP1-master\OOP1\OOP1\OOP1\obj\Debug\OOP1.Properties.Resources.resources
+C:\temp\OOP1-master\OOP1\OOP1\OOP1\obj\Debug\OOP1.csproj.GenerateResource.cache
+C:\temp\OOP1-master\OOP1\OOP1\OOP1\obj\Debug\OOP1.csproj.CoreCompileInputs.cache
+C:\temp\OOP1-master\OOP1\OOP1\OOP1\obj\Debug\OOP1.exe
+C:\temp\OOP1-master\OOP1\OOP1\OOP1\obj\Debug\OOP1.pdb

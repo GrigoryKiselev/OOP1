@@ -7,12 +7,11 @@ using System.Drawing;
 
 namespace OOP1
 {
-    [Serializable]
-    class Line : Shape
+    class Pencil : Shape
     {
-        public int counter = 0;
+        public int counter = 0;//счетчик чтобы запоминать только каждую n-ю точку 
         public List<Point> points = new List<Point>();
-        public Line(int x1, int y1, int width, int height, Color color, int penWidth)
+        public Pencil(int x1, int y1, int width, int height, Color color, int penWidth)
         {
 
             this.x1 = x1;
@@ -31,18 +30,37 @@ namespace OOP1
             pointList.Clear();
             pointList.Add(new float[4] { x1, y1, x1 + width, y1 + height });
         }
-       
-        public override void Calculate(Point from, Point to)
-        {   
-            points.Clear();
-            points.Add(from);
-            points.Add(to);
-        }
         
+        public override void Calculate(Point from, Point to)
+        {
+            if (points.Count == 0)
+            {
+                points.Add(from);
+                points.Add(to);
+            }
+
+            if ((++counter) % 3 == 0)
+            {
+                counter = 0;
+                points.Add(to);
+            }
+        }
+
         public override void Draw(int x1, int y1, int width, int height, Color color, int penWidth, Form1 form, Pen pen)
         {
-            form.g.DrawLine(pen, points[0],points[1]);         
+
+            form.g.DrawLine(pen, points[0], points[1]);
             form.GetPictureBox().Image = form.bmp;
+
+            Graphics canvas = form.g;
+            for (int i = 0; i < (points.Count - 1); i++)
+            {
+                canvas.DrawLine(pen, points[i], points[i + 1]);
+            }
+            form.GetPictureBox().Image = form.bmp;
+
+
+
         }
     }
 }

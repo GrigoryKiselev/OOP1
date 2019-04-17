@@ -17,15 +17,11 @@ namespace OOP1
     {
         List<Shape> shapeList = new List<Shape>();
         List<Shape> shapeListBuf = new List<Shape>();
-
         
-
         Shape shapeCurr;
         Color currColor = Color.Red;
-        int currPenWidth;
-        
-        Line line1;
-        Line line2;
+        int currPenWidth = 1;
+
         List<Line> lineList = new List<Line>();
         List<Rect> rectList = new List<Rect>();
 
@@ -35,7 +31,6 @@ namespace OOP1
         }
 
         bool mouseDown;
-        bool isShiftPressed;
 
         public Bitmap bmp { get; set; }
         public Graphics g { get; set; }
@@ -59,33 +54,20 @@ namespace OOP1
             bmp = new Bitmap(picture.Width, picture.Height);
             g = Graphics.FromImage(bmp);
             myBrush = new SolidBrush(Color.Red);
-            myPen = new Pen(Color.Blue);
+            myPen = new Pen(Color.Red);
             myPen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
             myPen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
-            line1 = new Line(100, 100, 200, 10, Color.Red, 1);
-            line2 = new Line(200, 10, 300, 100, Color.Purple, 2);
 
+            shapeList.Add(new Rect(250, 250, 100, 150, Color.Brown, 7));
+            shapeList.Add(new Rect(200, 200, 350, 200, Color.Orange, 7));
+            shapeList.Add(new Triangle(200, 50, 350, 150, Color.Red, 7));
         }
 
         private void Form1_Paint()
         {
-                      
-            g.FillEllipse(myBrush, new Rectangle(0, 0, 200, 300));
-            g.DrawRectangle(myPen, 100, 100, 200, 200);
-            Draw(line1);
-            Draw(line2);    
+            DrawShapes();
             picture.Image = bmp;
-           // g.Dispose();
-          //  myBrush.Dispose();
         }
-
-        //private void Draw (Shape shape)
-        //{
-        //    foreach(float[] pointList in shapeCurr.pointList)
-        //    {
-        //        g.DrawLine(myPen, pointList[0], pointList[1], pointList[2], pointList[3]);
-        //    }
-        //}
 
         private void Draw(Line line)
         {
@@ -102,15 +84,6 @@ namespace OOP1
             {
                 g.DrawLine(myPen, pointList[0], pointList[1], pointList[2], pointList[3]);
             }
-            //Rectangle rect = new Rectangle(rectangle.x1, rectangle.y1, rectangle.width, rectangle.height);
-            //if (rbEllipse.Checked)
-            //{
-            //    g.DrawEllipse(myPen, rect);
-            //}
-            //else if (rbRectangle.Checked)
-            //{
-            //    g.DrawRectangle(myPen, rect);
-            //}
             picture.Image = bmp;
         }
 
@@ -128,7 +101,6 @@ namespace OOP1
             if (rbRectangle.Checked )
             {
                 shapeCurr = new Rect(x1, y1, 0, 0, currColor, currPenWidth);
-                shapeCurr.Draw(x1, y1, 0, 0, currColor, currPenWidth, this, myPen);
             }
             else if(rbTriangle.Checked)
             {
@@ -154,6 +126,10 @@ namespace OOP1
             {
                 shapeCurr = new Star(x1, y1, 0, 0, currColor, currPenWidth);
             }
+            else if(rbPencil.Checked)
+            {
+                shapeCurr = new Pencil(x1, y1, 0, 0, currColor, currPenWidth);
+            }
             
         }
 
@@ -164,37 +140,15 @@ namespace OOP1
                 x2 = e.Location.X;
                 y2 = e.Location.Y;
 
-            //    if (rbRectangle.Checked || rbTriangle.Checked || rbRhombus.Checked || rbLine.Checked || rbEllipse.Checked || rbPentagon.Checked)
+          
                 {
-
-                    if (x2 < x1 && y2 > y1)
-                    {
-                        shapeCurr.x1 = x2;
-                        shapeCurr.Calculate(x2, y1, Math.Abs(x2 - x1), Math.Abs(y2 - y1));
-                    }
-                    if (x2 > x1 && y2 > y1)
-                    {
-                        //    rectCurr.x1 = x2;
-                        shapeCurr.Calculate(x1, y1, Math.Abs(x2 - x1), Math.Abs(y2 - y1));
-                    }
-                    if (x2 < x1 && y2 < y1)
-                    {
-                        shapeCurr.x1 = x2;
-                        shapeCurr.y1 = y2;
-                        shapeCurr.Calculate(x2, y2, Math.Abs(x2 - x1), Math.Abs(y2 - y1));
-                    }
-                    if (x2 > x1 && y2 < y1)
-                    {
-                        shapeCurr.y1 = y2;
-                        shapeCurr.Calculate(x1, y2, Math.Abs(x2 - x1), Math.Abs(y2 - y1));
-                    }
-
                     shapeCurr.width = Math.Abs(x2 - x1);
                     shapeCurr.height = Math.Abs(y2 - y1);
+                    shapeCurr.Calculate(new Point(x1, y1), e.Location);
 
                     if (cbShift.Checked)
                     {
-                        if(shapeCurr.width > shapeCurr.height)
+                        if (shapeCurr.width > shapeCurr.height)
                         {
                             shapeCurr.width = shapeCurr.height;
                         }
@@ -204,9 +158,27 @@ namespace OOP1
                         }
                     }
 
-                    //  rectCurr.Calculate(x1, y1, Math.Abs(x2 - x1), Math.Abs(y2 - y1));
+                    if (x2 < x1 && y2 > y1)
+                    {
+                        shapeCurr.x1 = x2;
+                        shapeCurr.Calculate(x2, y1, shapeCurr.width, shapeCurr.height);
+                    }
+                    if (x2 > x1 && y2 > y1)
+                    {
+                        shapeCurr.Calculate(x1, y1, shapeCurr.width, shapeCurr.height);
+                    }
+                    if (x2 < x1 && y2 < y1)
+                    {
+                        shapeCurr.x1 = x2;
+                        shapeCurr.y1 = y2;
+                        shapeCurr.Calculate(x2, y2, shapeCurr.width, shapeCurr.height);
+                    }
+                    if (x2 > x1 && y2 < y1)
+                    {
+                        shapeCurr.y1 = y2;
+                        shapeCurr.Calculate(x1, y2, shapeCurr.width,shapeCurr.height);
+                    }
 
-                    //DrawRects();
                     DrawShapes();
                     shapeCurr.Draw(x1, y1, shapeCurr.width, shapeCurr.height, currColor, currPenWidth, this, myPen);
                 }
@@ -222,8 +194,6 @@ namespace OOP1
             x2 = e.Location.X;
             y2 = e.Location.Y;
 
-
-          //  if (rbRectangle.Checked || rbTriangle.Checked || rbRhombus.Checked || rbLine.Checked || rbEllipse.Checked || rbPentagon.Checked)
             {
                 if(x2 < x1)
                 {
@@ -241,10 +211,7 @@ namespace OOP1
                 shapeCurr.penWidth = currPenWidth;
 
                 DrawShapes();
-                //DrawRects();
                 shapeCurr.Draw(x1, y1, shapeCurr.width, shapeCurr.height, currColor, currPenWidth, this, myPen);
-
-             //   rectList.Add(rectCurr);
 
                 shapeList.Add(shapeCurr);
             }
@@ -260,15 +227,6 @@ namespace OOP1
             }
         }
 
-        //public void DrawRects()
-        //{
-        //    g.Clear(Color.White);
-        //    foreach(Rect rect in rectList)
-        //    {
-        //        rect.Draw(x1, y1, 0, 0, this, myPen);
-        //    }
-        //}
-
         public void DrawShapes()
         {
             g.Clear(Color.White);
@@ -280,9 +238,10 @@ namespace OOP1
             }
             myPen.Width = currPenWidth;
             myPen.Color = currColor;
+            GetPictureBox().Image = bmp;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonUndo_Click(object sender, EventArgs e)
         {
             try
             {
@@ -290,7 +249,7 @@ namespace OOP1
                 shapeList.RemoveAt(shapeList.Count - 1);
                 DrawShapes();
             }
-            catch { }
+            catch { MessageBox.Show("Отмена невозможна"); }
         }
 
         private void btnRedo_Click(object sender, EventArgs e)
@@ -301,7 +260,7 @@ namespace OOP1
                 shapeListBuf.RemoveAt(shapeListBuf.Count - 1);
                 DrawShapes();
             }
-            catch { }
+            catch { MessageBox.Show("Восстановление невозможно"); }
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -352,6 +311,32 @@ namespace OOP1
 
         }
 
-        
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            shapeList.Clear();
+            DrawShapes();
+        }
+
+        private void tbWidth_Scroll(object sender, EventArgs e)
+        {
+            lblWidth.Text = String.Format("Pen width : {0}", tbWidth.Value);
+        }
+
+        private void btnColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog MyDialog = new ColorDialog();
+            MyDialog.AllowFullOpen = true;
+            MyDialog.ShowHelp = true;
+            if (MyDialog.ShowDialog() == DialogResult.OK)
+            {
+                currColor = MyDialog.Color;
+                btnColor.BackColor = currColor;
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

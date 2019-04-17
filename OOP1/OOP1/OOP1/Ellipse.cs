@@ -9,15 +9,10 @@ namespace OOP1
 {
     class Ellipse : Shape
     {
-        public new int x1;// { get { return x1; } set { Calculate(x1, y1, width, height); } }
-        public new int y1;// { get { return y1; } set { Calculate(x1, y1, width, height); } }
-        public new int width;// { get { return width; } set { Calculate(x1, y1, width, height); } }
-        public new int height;// { get { return height; } set { Calculate(x1, y1, width, height); } }
         public List<Point> points = new List<Point>();
 
-        public Ellipse(int x1, int y1, int width, int height, Color color, int penWidth) : base(x1, y1, width, height, color, penWidth)
+        public Ellipse(int x1, int y1, int width, int height, Color color, int penWidth)
         {
-
             this.x1 = x1;
             this.y1 = y1;
             this.width = width;

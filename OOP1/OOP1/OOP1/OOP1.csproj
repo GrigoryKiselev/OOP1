@@ -54,6 +54,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Line.cs" />
+    <Compile Include="Pencil.cs" />
     <Compile Include="Pentagon.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -86,6 +88,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Star30.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Star50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Rect50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Undo50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Redo50.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
