@@ -13,6 +13,7 @@ using System.IO;
 
 namespace OOP1
 {
+    //
     public partial class Form1 : Form
     {
         List<Shape> shapeList = new List<Shape>();
@@ -69,23 +70,6 @@ namespace OOP1
             picture.Image = bmp;
         }
 
-        private void Draw(Line line)
-        {
-            foreach(float[] pointList in line.pointList)
-            {
-                g.DrawLine(myPen, pointList[0], pointList[1], pointList[2], pointList[3]);
-            }
-            picture.Image = bmp;
-        }
-
-        private void Draw(Rect rectangle)
-        {
-            foreach (float[] pointList in rectangle.pointList)
-            {
-                g.DrawLine(myPen, pointList[0], pointList[1], pointList[2], pointList[3]);
-            }
-            picture.Image = bmp;
-        }
 
         private void picture_MouseDown(object sender, MouseEventArgs e)
         {
@@ -218,15 +202,6 @@ namespace OOP1
                     
         }
 
-        public void DrawLines()
-        {
-            g.Clear(Color.White);
-            foreach (Line line in lineList)
-            {
-                Draw(line);
-            }
-        }
-
         public void DrawShapes()
         {
             g.Clear(Color.White);
@@ -263,16 +238,6 @@ namespace OOP1
             catch { MessageBox.Show("Восстановление невозможно"); }
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void radioButton1_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
         //public List<Shape> ReadAndDeserialize(string path)
         //{
         //    var serializer = new XmlSerializer(typeof(List<Shape>));
@@ -290,12 +255,6 @@ namespace OOP1
         //        serializer.Serialize(writer, data);
         //    }
         //}
-        
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            
-        }
 
         private void btnChooseColor_Click(object sender, EventArgs e)
         {
@@ -304,11 +263,6 @@ namespace OOP1
             MyDialog.ShowHelp = true;
             if (MyDialog.ShowDialog() == DialogResult.OK)
                 currColor = MyDialog.Color;
-        }
-
-        private void radioButton1_CheckedChanged_2(object sender, EventArgs e)
-        {
-
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -332,11 +286,6 @@ namespace OOP1
                 currColor = MyDialog.Color;
                 btnColor.BackColor = currColor;
             }
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

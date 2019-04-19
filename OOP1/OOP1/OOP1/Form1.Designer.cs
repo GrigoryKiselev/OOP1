@@ -121,7 +121,6 @@
             this.rbLine.TabStop = true;
             this.rbLine.Text = "Line";
             this.rbLine.UseVisualStyleBackColor = true;
-            this.rbLine.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged_1);
             // 
             // rbEllipse
             // 
@@ -196,7 +195,6 @@
             this.rbRectangle.TabStop = true;
             this.rbRectangle.Text = "Rectangle";
             this.rbRectangle.UseVisualStyleBackColor = true;
-            this.rbRectangle.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // btnRedo
             // 
@@ -220,7 +218,6 @@
             this.rbStar.TabIndex = 8;
             this.rbStar.TabStop = true;
             this.rbStar.UseVisualStyleBackColor = true;
-            this.rbStar.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged_2);
             // 
             // btnUndo
             // 
@@ -264,7 +261,6 @@
             this.Name = "Form1";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Text = "Kiselev_Paint";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.gbFigures.ResumeLayout(false);
             this.gbFigures.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbWidth)).EndInit();
