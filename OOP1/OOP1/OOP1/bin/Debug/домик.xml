@@ -32,7 +32,7 @@
     <Width>100</Width>
     <Height>150</Height>
     <PenWidth>7</PenWidth>
-    <Color />
+    <Color>-5952982</Color>
   </Shape>
   <Shape xsi:type="Rect">
     <pointList>
@@ -66,7 +66,7 @@
     <Width>350</Width>
     <Height>200</Height>
     <PenWidth>7</PenWidth>
-    <Color />
+    <Color>-23296</Color>
   </Shape>
   <Shape xsi:type="Triangle">
     <pointList>
@@ -94,6 +94,6 @@
     <Width>350</Width>
     <Height>150</Height>
     <PenWidth>7</PenWidth>
-    <Color />
+    <Color>-65536</Color>
   </Shape>
 </ArrayOfShape>

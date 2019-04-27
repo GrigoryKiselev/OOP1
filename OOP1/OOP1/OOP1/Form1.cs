@@ -22,7 +22,7 @@ namespace OOP1
         Type[] arr = new Type[8];
 
         Shape shapeCurr;
-        Color currColor = Color.Red;
+        int currColor = Color.Red.ToArgb();
         int currPenWidth = 1;
 
         List<Line> lineList = new List<Line>();
@@ -77,10 +77,11 @@ namespace OOP1
             arr[6] = shapeCurr.GetType();
             shapeCurr = new Triangle();
             arr[7] = shapeCurr.GetType();
+           // arr[8] = myPen.GetType();
 
-            shapeList.Add(new Rect(250, 250, 100, 150, Color.Brown, 7));
-            shapeList.Add(new Rect(200, 200, 350, 200, Color.Orange, 7));
-            shapeList.Add(new Triangle(200, 50, 350, 150, Color.Red, 7));
+            shapeList.Add(new Rect(250, 250, 100, 150, Color.Brown.ToArgb(), 7));
+            shapeList.Add(new Rect(200, 200, 350, 200, Color.Orange.ToArgb(), 7));
+            shapeList.Add(new Triangle(200, 50, 350, 150, Color.Red.ToArgb(), 7));
         }
 
         private void Form1_Paint()
@@ -93,7 +94,7 @@ namespace OOP1
         private void picture_MouseDown(object sender, MouseEventArgs e)
         {
             shapeListBuf.Clear();
-            myPen.Color = currColor;
+            myPen.Color = Color.FromArgb(currColor);
             myPen.Width = tbWidth.Value;
             currPenWidth = tbWidth.Value;
             
@@ -184,7 +185,7 @@ namespace OOP1
                     }
 
                     DrawShapes();
-                    shapeCurr.Draw(x1, y1, shapeCurr.Width, shapeCurr.Height, currColor, currPenWidth, this, myPen);
+                    shapeCurr.Draw(x1, y1, shapeCurr.Width, shapeCurr.Height, this, myPen);
                 }
                            
             }
@@ -215,7 +216,7 @@ namespace OOP1
                 shapeCurr.PenWidth = currPenWidth;
 
                 DrawShapes();
-                shapeCurr.Draw(x1, y1, shapeCurr.Width, shapeCurr.Height, currColor, currPenWidth, this, myPen);
+                shapeCurr.Draw(x1, y1, shapeCurr.Width, shapeCurr.Height, this, myPen);
 
                 shapeList.Add(shapeCurr);
             }
@@ -227,12 +228,12 @@ namespace OOP1
             g.Clear(Color.White);
             foreach (Shape shape in shapeList)
             {
-                myPen.Color = shape.Color;
+                myPen.Color = Color.FromArgb(shape.Color);
                 myPen.Width = shape.PenWidth;
-                shape.Draw(x1, y1, shape.Width, shape.Height, shape.Color, shape.PenWidth, this, myPen);
+                shape.Draw(x1, y1, shape.Width, shape.Height, this, myPen);
             }
             myPen.Width = currPenWidth;
-            myPen.Color = currColor;
+            myPen.Color = Color.FromArgb(currColor);
             GetPictureBox().Image = bmp;
         }
 
@@ -265,7 +266,7 @@ namespace OOP1
             MyDialog.AllowFullOpen = true;
             MyDialog.ShowHelp = true;
             if (MyDialog.ShowDialog() == DialogResult.OK)
-                currColor = MyDialog.Color;
+                currColor = MyDialog.Color.ToArgb();
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -286,8 +287,8 @@ namespace OOP1
             MyDialog.ShowHelp = true;
             if (MyDialog.ShowDialog() == DialogResult.OK)
             {
-                currColor = MyDialog.Color;
-                btnColor.BackColor = currColor;
+                currColor = MyDialog.Color.ToArgb();
+                btnColor.BackColor = Color.FromArgb(currColor);
             }
         }
 

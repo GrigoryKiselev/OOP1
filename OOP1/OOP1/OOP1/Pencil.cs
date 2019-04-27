@@ -12,7 +12,7 @@ namespace OOP1
     {
         public int counter = 0;//счетчик чтобы запоминать только каждую n-ю точку 
         public List<Point> points = new List<Point>();
-        public Pencil(int x1, int y1, int width, int height, Color color, int penWidth)
+        public Pencil(int x1, int y1, int width, int height, int color, int penWidth)
         {
             X1 = x1;
             Y1 = y1;
@@ -42,7 +42,7 @@ namespace OOP1
             }
         }
 
-        public override void Draw(int x1, int y1, int width, int height, Color color, int penWidth, Form1 form, Pen pen)
+        public override void Draw(int x1, int y1, int width, int height, Form1 form, Pen pen)
         {
 
             form.g.DrawLine(pen, points[0], points[1]);

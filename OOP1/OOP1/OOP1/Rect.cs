@@ -10,7 +10,7 @@ namespace OOP1
     [Serializable]
     public class Rect : Shape
     {
-        public Rect(int x1, int y1, int width, int height, Color color, int penWidth) 
+        public Rect(int x1, int y1, int width, int height, int color, int penWidth) 
         {
             X1 = x1;
             Y1 = y1;
@@ -32,7 +32,7 @@ namespace OOP1
             pointList.Add(new float[4] { x1, y1 + height, x1 + width, y1 + height });
         }
 
-        public override void Draw(int x1, int y1, int width, int height, Color color, int penWidth, Form1 form, Pen pen)
+        public override void Draw(int x1, int y1, int width, int height, Form1 form, Pen pen)
         {
             foreach (float[] pointL in pointList)
             {

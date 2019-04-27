@@ -12,7 +12,7 @@ namespace OOP1
     {
         public List<Point> points = new List<Point>();
 
-        public Ellipse(int x1, int y1, int width, int height, Color color, int penWidth)
+        public Ellipse(int x1, int y1, int width, int height, int color, int penWidth)
         {
             X1 = x1;
             Y1 = y1;
@@ -42,7 +42,7 @@ namespace OOP1
             }
         }
 
-        public override void Draw(int x1, int y1, int width, int height, Color color, int penWidth, Form1 form, Pen pen)
+        public override void Draw(int x1, int y1, int width, int height, Form1 form, Pen pen)
         {
             Graphics canvas = form.g;
             for (int i = 0; i < points.Count; i++)

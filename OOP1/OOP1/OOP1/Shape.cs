@@ -26,12 +26,12 @@ namespace OOP1
         public int Width { get; set; }
         public int Height { get; set; }
         public int PenWidth { get; set; }
-        public Color Color { get; set; }
+        public int Color { get; set; }
         public List<float[]> pointList= new List<float[]>();
 
         public virtual void Calculate(int x1, int y1, int width, int height) { }
         public virtual void Calculate(Point from, Point to) { }
         
-        public virtual void Draw(int x1, int y1, int width, int height, Color color, int penWidth, Form1 form, Pen pen) { }
+        public virtual void Draw(int x1, int y1, int width, int height, Form1 form, Pen pen) { }
     }
 }
