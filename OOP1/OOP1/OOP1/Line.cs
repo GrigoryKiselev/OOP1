@@ -8,23 +8,25 @@ using System.Drawing;
 namespace OOP1
 {
     [Serializable]
-    class Line : Shape
+    public class Line : Shape
     {
         public int counter = 0;
         public List<Point> points = new List<Point>();
         public Line(int x1, int y1, int width, int height, Color color, int penWidth)
         {
 
-            this.x1 = x1;
-            this.y1 = y1;
-            this.width = width;
-            this.height = height;
-            this.color = color;
-            this.penWidth = penWidth;
+            X1 = x1;
+            Y1 = y1;
+            Width = width;
+            Height = height;
+            Color = color;
+            PenWidth = penWidth;
 
-            Calculate(this.x1, this.y1, this.width, this.height);
-            Calculate(new Point(this.x1, this.y1), new Point(this.x1, this.y1));
+            Calculate(X1, Y1, Width, Height);
+            Calculate(new Point(X1, Y1), new Point(X1, Y1));
         }
+
+        public Line() { }
 
         public override void Calculate(int x1, int y1, int width, int height)
         {

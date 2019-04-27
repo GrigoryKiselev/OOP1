@@ -7,29 +7,25 @@ using System.Drawing;
 
 namespace OOP1
 {
-    class Pencil : Shape
+    [Serializable]
+    public class Pencil : Shape
     {
         public int counter = 0;//счетчик чтобы запоминать только каждую n-ю точку 
         public List<Point> points = new List<Point>();
         public Pencil(int x1, int y1, int width, int height, Color color, int penWidth)
         {
+            X1 = x1;
+            Y1 = y1;
+            Width = width;
+            Height = height;
+            Color = color;
+            PenWidth = penWidth;
 
-            this.x1 = x1;
-            this.y1 = y1;
-            this.width = width;
-            this.height = height;
-            this.color = color;
-            this.penWidth = penWidth;
-
-            Calculate(this.x1, this.y1, this.width, this.height);
-            Calculate(new Point(this.x1, this.y1), new Point(this.x1, this.y1));
+            Calculate(X1, Y1, Width, Height);
+            Calculate(new Point(X1, Y1), new Point(X1, Y1));
         }
 
-        public override void Calculate(int x1, int y1, int width, int height)
-        {
-            pointList.Clear();
-            pointList.Add(new float[4] { x1, y1, x1 + width, y1 + height });
-        }
+        public Pencil() { }
         
         public override void Calculate(Point from, Point to)
         {
@@ -58,9 +54,7 @@ namespace OOP1
                 canvas.DrawLine(pen, points[i], points[i + 1]);
             }
             form.GetPictureBox().Image = form.bmp;
-
-
-
+                       
         }
     }
 }

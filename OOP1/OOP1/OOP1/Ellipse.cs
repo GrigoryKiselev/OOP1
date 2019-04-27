@@ -7,21 +7,24 @@ using System.Threading.Tasks;
 
 namespace OOP1
 {
-    class Ellipse : Shape
+    [Serializable]
+    public class Ellipse : Shape
     {
         public List<Point> points = new List<Point>();
 
         public Ellipse(int x1, int y1, int width, int height, Color color, int penWidth)
         {
-            this.x1 = x1;
-            this.y1 = y1;
-            this.width = width;
-            this.height = height;
-            this.color = color;
-            this.penWidth = penWidth;
+            X1 = x1;
+            Y1 = y1;
+            Width = width;
+            Height = height;
+            Color = color;
+            PenWidth = penWidth;
 
-            Calculate(this.x1, this.y1, this.width, this.height);
+            Calculate(this.X1, this.Y1, this.Width, this.Height);
         }
+
+        public Ellipse() { }
 
         public override void Calculate(int x1, int y1, int width, int height)
         {

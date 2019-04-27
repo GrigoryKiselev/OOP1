@@ -8,20 +8,21 @@ using System.Drawing;
 namespace OOP1
 {
     [Serializable]
-    class Pentagon : Shape
+    public class Pentagon : Shape
     {
         public List<Point> points = new List<Point>();
         public Pentagon(int x1, int y1, int width, int height, Color color, int penWidth)
         {
-            this.x1 = x1;
-            this.y1 = y1;
-            this.width = width;
-            this.height = height;
-            this.color = color;
-            this.penWidth = penWidth;
-
-            Calculate(this.x1, this.y1, this.width, this.height);
+            X1 = x1;
+            Y1 = y1;
+            Width = width;
+            Height = height;
+            Color = color;
+            PenWidth = penWidth;
+            Calculate(X1, Y1, Width, Height);
         }
+
+        public Pentagon() { }
 
         public override void Calculate(int x1, int y1, int width, int height)
         {

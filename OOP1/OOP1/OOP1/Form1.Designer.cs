@@ -30,21 +30,25 @@
         {
             this.gbFigures = new System.Windows.Forms.GroupBox();
             this.rbPencil = new System.Windows.Forms.RadioButton();
+            this.rbStar = new System.Windows.Forms.RadioButton();
             this.rbPentagon = new System.Windows.Forms.RadioButton();
             this.rbRhombus = new System.Windows.Forms.RadioButton();
             this.rbTriangle = new System.Windows.Forms.RadioButton();
             this.rbLine = new System.Windows.Forms.RadioButton();
             this.rbEllipse = new System.Windows.Forms.RadioButton();
+            this.rbRectangle = new System.Windows.Forms.RadioButton();
             this.tbWidth = new System.Windows.Forms.TrackBar();
             this.cbShift = new System.Windows.Forms.CheckBox();
             this.lblWidth = new System.Windows.Forms.Label();
             this.btnColor = new System.Windows.Forms.Button();
             this.lblColor = new System.Windows.Forms.Label();
-            this.rbRectangle = new System.Windows.Forms.RadioButton();
             this.btnRedo = new System.Windows.Forms.Button();
-            this.rbStar = new System.Windows.Forms.RadioButton();
             this.btnUndo = new System.Windows.Forms.Button();
             this.picture = new System.Windows.Forms.PictureBox();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnLoad = new System.Windows.Forms.Button();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.gbFigures.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
@@ -77,6 +81,18 @@
             this.rbPencil.TabStop = true;
             this.rbPencil.Text = "Pencil";
             this.rbPencil.UseVisualStyleBackColor = true;
+            // 
+            // rbStar
+            // 
+            this.rbStar.AutoSize = true;
+            this.rbStar.Image = global::OOP1.Properties.Resources.Star50;
+            this.rbStar.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.rbStar.Location = new System.Drawing.Point(21, 199);
+            this.rbStar.Name = "rbStar";
+            this.rbStar.Size = new System.Drawing.Size(64, 50);
+            this.rbStar.TabIndex = 8;
+            this.rbStar.TabStop = true;
+            this.rbStar.UseVisualStyleBackColor = true;
             // 
             // rbPentagon
             // 
@@ -132,6 +148,18 @@
             this.rbEllipse.Text = "Ellipse";
             this.rbEllipse.UseVisualStyleBackColor = true;
             // 
+            // rbRectangle
+            // 
+            this.rbRectangle.AutoSize = true;
+            this.rbRectangle.Checked = true;
+            this.rbRectangle.Location = new System.Drawing.Point(21, 18);
+            this.rbRectangle.Name = "rbRectangle";
+            this.rbRectangle.Size = new System.Drawing.Size(74, 17);
+            this.rbRectangle.TabIndex = 0;
+            this.rbRectangle.TabStop = true;
+            this.rbRectangle.Text = "Rectangle";
+            this.rbRectangle.UseVisualStyleBackColor = true;
+            // 
             // tbWidth
             // 
             this.tbWidth.Location = new System.Drawing.Point(21, 343);
@@ -184,18 +212,6 @@
             this.lblColor.TabIndex = 10;
             this.lblColor.Text = "Color";
             // 
-            // rbRectangle
-            // 
-            this.rbRectangle.AutoSize = true;
-            this.rbRectangle.Checked = true;
-            this.rbRectangle.Location = new System.Drawing.Point(21, 18);
-            this.rbRectangle.Name = "rbRectangle";
-            this.rbRectangle.Size = new System.Drawing.Size(74, 17);
-            this.rbRectangle.TabIndex = 0;
-            this.rbRectangle.TabStop = true;
-            this.rbRectangle.Text = "Rectangle";
-            this.rbRectangle.UseVisualStyleBackColor = true;
-            // 
             // btnRedo
             // 
             this.btnRedo.BackColor = System.Drawing.Color.OldLace;
@@ -206,18 +222,6 @@
             this.btnRedo.TabIndex = 3;
             this.btnRedo.UseVisualStyleBackColor = false;
             this.btnRedo.Click += new System.EventHandler(this.btnRedo_Click);
-            // 
-            // rbStar
-            // 
-            this.rbStar.AutoSize = true;
-            this.rbStar.Image = global::OOP1.Properties.Resources.Star50;
-            this.rbStar.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.rbStar.Location = new System.Drawing.Point(21, 199);
-            this.rbStar.Name = "rbStar";
-            this.rbStar.Size = new System.Drawing.Size(64, 50);
-            this.rbStar.TabIndex = 8;
-            this.rbStar.TabStop = true;
-            this.rbStar.UseVisualStyleBackColor = true;
             // 
             // btnUndo
             // 
@@ -236,12 +240,36 @@
             this.picture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picture.Location = new System.Drawing.Point(144, 21);
             this.picture.Name = "picture";
-            this.picture.Size = new System.Drawing.Size(828, 488);
+            this.picture.Size = new System.Drawing.Size(673, 488);
             this.picture.TabIndex = 0;
             this.picture.TabStop = false;
             this.picture.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picture_MouseDown);
             this.picture.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picture_MouseMove);
             this.picture.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picture_MouseUp);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(834, 21);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 11;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnLoad
+            // 
+            this.btnLoad.Location = new System.Drawing.Point(834, 50);
+            this.btnLoad.Name = "btnLoad";
+            this.btnLoad.Size = new System.Drawing.Size(75, 23);
+            this.btnLoad.TabIndex = 12;
+            this.btnLoad.Text = "Load";
+            this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog1";
             // 
             // Form1
             // 
@@ -249,6 +277,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.OldLace;
             this.ClientSize = new System.Drawing.Size(999, 523);
+            this.Controls.Add(this.btnLoad);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lblColor);
             this.Controls.Add(this.btnColor);
             this.Controls.Add(this.lblWidth);
@@ -289,6 +319,10 @@
         private System.Windows.Forms.Label lblWidth;
         private System.Windows.Forms.Button btnColor;
         private System.Windows.Forms.Label lblColor;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnLoad;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
     }
 }
 

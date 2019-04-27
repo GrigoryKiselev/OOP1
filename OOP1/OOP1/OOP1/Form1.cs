@@ -18,7 +18,9 @@ namespace OOP1
     {
         List<Shape> shapeList = new List<Shape>();
         List<Shape> shapeListBuf = new List<Shape>();
-        
+        List<Type> typeList = new List<Type>();
+        Type[] arr = new Type[8];
+
         Shape shapeCurr;
         Color currColor = Color.Red;
         int currPenWidth = 1;
@@ -31,7 +33,7 @@ namespace OOP1
             return picture;
         }
 
-        bool mouseDown;
+        bool isMouseDown;
 
         public Bitmap bmp { get; set; }
         public Graphics g { get; set; }
@@ -58,6 +60,23 @@ namespace OOP1
             myPen = new Pen(Color.Red);
             myPen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
             myPen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
+                                   
+            shapeCurr = new Rect();
+            arr[0] = shapeCurr.GetType();
+            shapeCurr = new Line();
+            arr[1] = shapeCurr.GetType();
+            shapeCurr = new Pencil();
+            arr[2] = shapeCurr.GetType();
+            shapeCurr = new Pentagon();
+            arr[3] = shapeCurr.GetType();
+            shapeCurr = new Rhombus();
+            arr[4] = shapeCurr.GetType();
+            shapeCurr = new Star();
+            arr[5] = shapeCurr.GetType();
+            shapeCurr = new Ellipse();
+            arr[6] = shapeCurr.GetType();
+            shapeCurr = new Triangle();
+            arr[7] = shapeCurr.GetType();
 
             shapeList.Add(new Rect(250, 250, 100, 150, Color.Brown, 7));
             shapeList.Add(new Rect(200, 200, 350, 200, Color.Orange, 7));
@@ -73,12 +92,13 @@ namespace OOP1
 
         private void picture_MouseDown(object sender, MouseEventArgs e)
         {
+            shapeListBuf.Clear();
             myPen.Color = currColor;
             myPen.Width = tbWidth.Value;
             currPenWidth = tbWidth.Value;
             
 
-            mouseDown = true;
+            isMouseDown = true;
             x1 = e.Location.X;
             y1 = e.Location.Y;
 
@@ -119,52 +139,52 @@ namespace OOP1
 
         private void picture_MouseMove(object sender, MouseEventArgs e)
         {
-            if (mouseDown)
+            if (isMouseDown)
             {
                 x2 = e.Location.X;
                 y2 = e.Location.Y;
 
           
                 {
-                    shapeCurr.width = Math.Abs(x2 - x1);
-                    shapeCurr.height = Math.Abs(y2 - y1);
+                    shapeCurr.Width = Math.Abs(x2 - x1);
+                    shapeCurr.Height = Math.Abs(y2 - y1);
                     shapeCurr.Calculate(new Point(x1, y1), e.Location);
 
                     if (cbShift.Checked)
                     {
-                        if (shapeCurr.width > shapeCurr.height)
+                        if (shapeCurr.Width > shapeCurr.Height)
                         {
-                            shapeCurr.width = shapeCurr.height;
+                            shapeCurr.Width = shapeCurr.Height;
                         }
                         else
                         {
-                            shapeCurr.height = shapeCurr.width;
+                            shapeCurr.Height = shapeCurr.Width;
                         }
                     }
 
                     if (x2 < x1 && y2 > y1)
                     {
-                        shapeCurr.x1 = x2;
-                        shapeCurr.Calculate(x2, y1, shapeCurr.width, shapeCurr.height);
+                        shapeCurr.X1 = x2;
+                        shapeCurr.Calculate(x2, y1, shapeCurr.Width, shapeCurr.Height);
                     }
                     if (x2 > x1 && y2 > y1)
                     {
-                        shapeCurr.Calculate(x1, y1, shapeCurr.width, shapeCurr.height);
+                        shapeCurr.Calculate(x1, y1, shapeCurr.Width, shapeCurr.Height);
                     }
                     if (x2 < x1 && y2 < y1)
                     {
-                        shapeCurr.x1 = x2;
-                        shapeCurr.y1 = y2;
-                        shapeCurr.Calculate(x2, y2, shapeCurr.width, shapeCurr.height);
+                        shapeCurr.X1 = x2;
+                        shapeCurr.Y1 = y2;
+                        shapeCurr.Calculate(x2, y2, shapeCurr.Width, shapeCurr.Height);
                     }
                     if (x2 > x1 && y2 < y1)
                     {
-                        shapeCurr.y1 = y2;
-                        shapeCurr.Calculate(x1, y2, shapeCurr.width,shapeCurr.height);
+                        shapeCurr.Y1 = y2;
+                        shapeCurr.Calculate(x1, y2, shapeCurr.Width,shapeCurr.Height);
                     }
 
                     DrawShapes();
-                    shapeCurr.Draw(x1, y1, shapeCurr.width, shapeCurr.height, currColor, currPenWidth, this, myPen);
+                    shapeCurr.Draw(x1, y1, shapeCurr.Width, shapeCurr.Height, currColor, currPenWidth, this, myPen);
                 }
                            
             }
@@ -172,7 +192,7 @@ namespace OOP1
 
         private void picture_MouseUp(object sender, MouseEventArgs e)
         {
-            mouseDown = false;
+            isMouseDown = false;
 
 
             x2 = e.Location.X;
@@ -181,21 +201,21 @@ namespace OOP1
             {
                 if(x2 < x1)
                 {
-                    shapeCurr.x1 = x2;
+                    shapeCurr.X1 = x2;
                 }
 
                 if (y2 < y1)
                 {
-                    shapeCurr.y1 = y2;
+                    shapeCurr.Y1 = y2;
                 }
 
-                shapeCurr.width = Math.Abs(x2 - x1);
-                shapeCurr.height = Math.Abs(y2 - y1);
-                shapeCurr.color = currColor;
-                shapeCurr.penWidth = currPenWidth;
+                shapeCurr.Width = Math.Abs(x2 - x1);
+                shapeCurr.Height = Math.Abs(y2 - y1);
+                shapeCurr.Color = currColor;
+                shapeCurr.PenWidth = currPenWidth;
 
                 DrawShapes();
-                shapeCurr.Draw(x1, y1, shapeCurr.width, shapeCurr.height, currColor, currPenWidth, this, myPen);
+                shapeCurr.Draw(x1, y1, shapeCurr.Width, shapeCurr.Height, currColor, currPenWidth, this, myPen);
 
                 shapeList.Add(shapeCurr);
             }
@@ -207,9 +227,9 @@ namespace OOP1
             g.Clear(Color.White);
             foreach (Shape shape in shapeList)
             {
-                myPen.Color = shape.color;
-                myPen.Width = shape.penWidth;
-                shape.Draw(x1, y1, shape.width, shape.height, shape.color, shape.penWidth, this, myPen);
+                myPen.Color = shape.Color;
+                myPen.Width = shape.PenWidth;
+                shape.Draw(x1, y1, shape.Width, shape.Height, shape.Color, shape.PenWidth, this, myPen);
             }
             myPen.Width = currPenWidth;
             myPen.Color = currColor;
@@ -222,6 +242,7 @@ namespace OOP1
             {
                 shapeListBuf.Add(shapeList[shapeList.Count - 1]);
                 shapeList.RemoveAt(shapeList.Count - 1);
+                //shapeListBuf.Clear();
                 DrawShapes();
             }
             catch { MessageBox.Show("Отмена невозможна"); }
@@ -237,24 +258,6 @@ namespace OOP1
             }
             catch { MessageBox.Show("Восстановление невозможно"); }
         }
-
-        //public List<Shape> ReadAndDeserialize(string path)
-        //{
-        //    var serializer = new XmlSerializer(typeof(List<Shape>));
-        //    using (var reader = new StreamReader(path))
-        //    {
-        //        return (List<Shape>)serializer.Deserialize(reader);
-        //    }
-        //}
-
-        //public void SerializeAndSave(string path, List<Shape> data)
-        //{
-        //    var serializer = new XmlSerializer(typeof(List<Shape>));
-        //    using (var writer = new StreamWriter(path))
-        //    {
-        //        serializer.Serialize(writer, data);
-        //    }
-        //}
 
         private void btnChooseColor_Click(object sender, EventArgs e)
         {
@@ -286,6 +289,36 @@ namespace OOP1
                 currColor = MyDialog.Color;
                 btnColor.BackColor = currColor;
             }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog.ShowDialog() == DialogResult.Cancel)
+                return;
+            string filename = saveFileDialog.FileName + ".xml";
+
+            Type type = shapeList.GetType();
+            XmlSerializer formatter = new XmlSerializer(typeof(List<Shape>), arr);
+            using (FileStream fs = new FileStream(filename, FileMode.Create))
+            {                
+                formatter.Serialize(fs, shapeList);
+            }
+        }
+
+        private void btnLoad_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog.ShowDialog() == DialogResult.Cancel)
+                return;
+            string filename = openFileDialog.FileName;
+
+            Type type = shapeList.GetType();
+            XmlSerializer formatter = new XmlSerializer(typeof(List<Shape>), arr);
+            using (FileStream fs = new FileStream(filename, FileMode.OpenOrCreate))
+            {
+                shapeList.Clear();
+                shapeList = (List<Shape>)formatter.Deserialize(fs);
+            }
+            DrawShapes();
         }
     }
 }

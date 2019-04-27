@@ -5,18 +5,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Xml.Serialization;
 
 namespace OOP1
 {
     [Serializable]
-    class Shape
+    //[XmlInclude(typeof(Rect))]
+    //[XmlInclude(typeof(Triangle))]
+    //[XmlInclude(typeof(Star))]
+    //[XmlInclude(typeof(Ellipse))]
+    //[XmlInclude(typeof(Pentagon))]
+    //[XmlInclude(typeof(Rhombus))]
+    //[XmlInclude(typeof(Pencil))]
+    //[XmlInclude(typeof(Line))]
+    public abstract class Shape
     {
-        public int x1 { get; set; }
-        public int y1 { get; set; }
-        public int width { get; set; }
-        public int height { get; set; }
-        public int penWidth { get; set; }
-        public Color color { get; set; }
+
+        public int X1 { get; set; }
+        public int Y1 { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public int PenWidth { get; set; }
+        public Color Color { get; set; }
         public List<float[]> pointList= new List<float[]>();
 
         public virtual void Calculate(int x1, int y1, int width, int height) { }
