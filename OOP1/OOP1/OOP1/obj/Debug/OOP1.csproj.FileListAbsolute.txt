@@ -2,7 +2,6 @@ D:\4курс\ООП\Lab1\OOP1\OOP1\OOP1\bin\Debug\OOP1.exe.config
 D:\4курс\ООП\Lab1\OOP1\OOP1\OOP1\bin\Debug\OOP1.exe
 D:\4курс\ООП\Lab1\OOP1\OOP1\OOP1\bin\Debug\OOP1.pdb
 D:\4курс\ООП\Lab1\OOP1\OOP1\OOP1\obj\Debug\OOP1.csprojAssemblyReference.cache
-D:\4курс\ООП\Lab1\OOP1\OOP1\OOP1\obj\Debug\OOP1.Form1.resources
 D:\4курс\ООП\Lab1\OOP1\OOP1\OOP1\obj\Debug\OOP1.Properties.Resources.resources
 D:\4курс\ООП\Lab1\OOP1\OOP1\OOP1\obj\Debug\OOP1.csproj.GenerateResource.cache
 D:\4курс\ООП\Lab1\OOP1\OOP1\OOP1\obj\Debug\OOP1.csproj.CoreCompileInputs.cache
@@ -18,3 +17,4 @@ C:\temp\OOP1-master\OOP1\OOP1\OOP1\obj\Debug\OOP1.csproj.GenerateResource.cache
 C:\temp\OOP1-master\OOP1\OOP1\OOP1\obj\Debug\OOP1.csproj.CoreCompileInputs.cache
 C:\temp\OOP1-master\OOP1\OOP1\OOP1\obj\Debug\OOP1.exe
 C:\temp\OOP1-master\OOP1\OOP1\OOP1\obj\Debug\OOP1.pdb
+D:\4курс\ООП\Lab1\OOP1\OOP1\OOP1\obj\Debug\OOP1.Form_Kiselev_Paint.resources

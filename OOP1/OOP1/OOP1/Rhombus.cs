@@ -32,13 +32,18 @@ namespace OOP1
             pointList.Add(new float[4] { x1, y1 + (height / 2), x1 + (width / 2), y1 });
         }
 
-        public override void Draw(int x1, int y1, int width, int height, Form1 form, Pen pen)
+        public override void Draw(Form_Kiselev_Paint form, Pen pen)
         {
             foreach (float[] pointL in pointList)
             {
                 form.g.DrawLine(pen, pointL[0], pointL[1], pointL[2], pointL[3]);
             }
             form.GetPictureBox().Image = form.bmp;
+        }
+
+        public override Shape FactoryMethod(int x1, int y1, int width, int height, int color, int penWidth)
+        {
+            return new Rhombus(x1, y1, width, height, color, penWidth);
         }
     }
 }

@@ -42,7 +42,7 @@ namespace OOP1
             }
         }
 
-        public override void Draw(int x1, int y1, int width, int height, Form1 form, Pen pen)
+        public override void Draw(Form_Kiselev_Paint form, Pen pen)
         {
 
             form.g.DrawLine(pen, points[0], points[1]);
@@ -55,6 +55,11 @@ namespace OOP1
             }
             form.GetPictureBox().Image = form.bmp;
                        
+        }
+
+        public override Shape FactoryMethod(int x1, int y1, int width, int height, int color, int penWidth)
+        {
+            return new Pencil(x1, y1, width, height, color, penWidth);
         }
     }
 }

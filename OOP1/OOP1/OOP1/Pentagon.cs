@@ -39,7 +39,7 @@ namespace OOP1
             }
         }
 
-        public override void Draw(int x1, int y1, int width, int height, Form1 form, Pen pen)
+        public override void Draw(Form_Kiselev_Paint form, Pen pen)
         {
             Graphics canvas = form.g;
             for (int i = 0; i < points.Count; i++)
@@ -47,6 +47,11 @@ namespace OOP1
                 canvas.DrawLine(pen, points[i], points[((i + 1) % points.Count)]);
             }
             form.GetPictureBox().Image = form.bmp;
+        }
+
+        public override Shape FactoryMethod(int x1, int y1, int width, int height, int color, int penWidth)
+        {
+            return new Pentagon(x1, y1, width, height, color, penWidth);
         }
     }
 }
