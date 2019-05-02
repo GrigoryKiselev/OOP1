@@ -33,6 +33,40 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EllipseLib">
+      <HintPath>Libs\EllipseLib\EllipseLib\bin\Debug\EllipseLib.dll</HintPath>
+    </Reference>
+    <Reference Include="IEditable">
+      <HintPath>EditableIntf\IEditable\IEditable\bin\Debug\IEditable.dll</HintPath>
+    </Reference>
+    <Reference Include="ISelectable">
+      <HintPath>SelectableIntf\ISelectable\ISelectable\bin\Debug\ISelectable.dll</HintPath>
+    </Reference>
+    <Reference Include="LineLib">
+      <HintPath>Libs\LineLib\LineLib\bin\Debug\LineLib.dll</HintPath>
+    </Reference>
+    <Reference Include="PencilLib">
+      <HintPath>Libs\PencilLib\PencilLib\bin\Debug\PencilLib.dll</HintPath>
+    </Reference>
+    <Reference Include="PentagonLib">
+      <HintPath>Libs\PentagonLib\PentagonLib\PentagonLib\bin\Debug\PentagonLib.dll</HintPath>
+    </Reference>
+    <Reference Include="PluginInterface">
+      <HintPath>PluginIntf\PluginInterface\PluginInterface\bin\Debug\PluginInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="Rect">
+      <HintPath>Libs\RectLib\Rect\Rect\bin\Debug\Rect.dll</HintPath>
+    </Reference>
+    <Reference Include="RhombusLib">
+      <HintPath>Libs\Rhombus\RhombusLib\RhombusLib\bin\Debug\RhombusLib.dll</HintPath>
+    </Reference>
+    <Reference Include="ShapeLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\RectLib\Rect\Rect\bin\Debug\ShapeLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Star">
+      <HintPath>Libs\StarLib\Star\Star\bin\Debug\Star.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,28 +78,20 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="TriangleLib">
+      <HintPath>Libs\TriangleLib\TriangleLib\TriangleLib\bin\Debug\TriangleLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ellipse.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="IEditable.cs" />
-    <Compile Include="ISelectable.cs" />
-    <Compile Include="Line.cs" />
-    <Compile Include="Pencil.cs" />
-    <Compile Include="Pentagon.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rect.cs" />
-    <Compile Include="Rhombus.cs" />
-    <Compile Include="Shape.cs" />
     <Compile Include="ShapeFactory.cs" />
-    <Compile Include="Star.cs" />
-    <Compile Include="Triangle.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

@@ -11,11 +11,13 @@ using System.Xml.Serialization;
 using System.Xml;
 using System.IO;
 using System.Reflection;
-
+using PluginInterface;
 namespace OOP1
 {
     public partial class Form_Kiselev_Paint : Form
     {
+        private List<IPlugin> plugins = new List<IPlugin>();
+
         List<Shape> shapeList = new List<Shape>();
         List<Shape> shapeListBuf = new List<Shape>();
         List<Type> typeList = new List<Type>();
@@ -23,7 +25,7 @@ namespace OOP1
 
         Shape shapeCurr;
         Shape checkedShape = new Rect();
-        int currColor = Color.Red.ToArgb();
+        int currColor = Color.Black.ToArgb();
         int currPenWidth = 1;
 
         public static Rectangle checkedRectangle = new Rectangle();
@@ -54,19 +56,77 @@ namespace OOP1
             InitializeComponent();
             Init();
             Form1_Paint();
+            //обновляем список плагинов
+            RefreshPlugins();
+        }
+
+        //путь к папке с плагинами
+        private readonly string pluginPath = System.IO.Path.Combine(
+                                                        Directory.GetCurrentDirectory(),
+                                                        "Plugins");
+        
+        private void RefreshPlugins()
+        {
+            plugins.Clear();
+
+            DirectoryInfo pluginDirectory = new DirectoryInfo(pluginPath);
+            if (!pluginDirectory.Exists)
+                pluginDirectory.Create();
+
+            //берем из директории все файлы с расширением .dll      
+            var pluginFiles = Directory.GetFiles(pluginPath, "*.dll");
+            foreach (var file in pluginFiles)
+            {
+                //загружаем сборку
+                Assembly asm = Assembly.LoadFrom(file);
+                //ищем типы, имплементирующие наш интерфейс IPlugin,
+                //чтобы не захватить лишнего
+                var types = asm.GetTypes().
+                                Where(t => t.GetInterfaces().
+                                Where(i => i.FullName == typeof(IPlugin).FullName).Any());
+
+                //заполняем экземплярами полученных типов коллекцию плагинов
+                foreach (var type in types)
+                {
+                    var plugin = asm.CreateInstance(type.FullName) as IPlugin;
+                    plugins.Add(plugin);
+                }
+            }
         }
 
         private void Init ()
         {
-        //    AssemblyName asm = AssemblyName.GetAssemblyName("Triangle.cs");
-        //    Type classobject = asm.GetType("Triangle");
-           // cmbbShapes.Items.Add(classobject);
+            //    AssemblyName asm = AssemblyName.GetAssemblyName("Triangle.cs");
+            //    Type classobject = asm.GetType("Triangle");
+            // cmbbShapes.Items.Add(classobject);
+            ////Assembly a = Assembly.Load("Rect");
+            ////Object o = a.CreateInstance("Rect");
+            ////Type t = a.GetType("Rect");
+            ////Type[] tMas = new Type[1];
+            ////tMas[0] = t;
+
+            ////Object[] test = new Object[6];
+            ////test[0] = 1;
+            ////test[1] = 1;
+            ////test[2] = 100;
+            ////test[3] = 100;
+            ////test[4] = -65000;
+            ////test[5] = 5;
+
+            //ConstructorInfo constructorInfo = t.GetConstructor(
+            //              new[] { typeof(int), typeof(int), typeof(int), typeof(int), typeof(int), typeof(int) });
+            //if (constructorInfo != null)
+            //{
+            //    object[] lobject = new object[] { 1, 2, 3 };
+            //    constructorInfo.Invoke(lobject);
+            //    shapeList.Add((Shape)lobject);
+            //}
 
             bmp = new Bitmap(picture.Width, picture.Height);
             g = Graphics.FromImage(bmp);
             myBrush = new SolidBrush(Color.Red);
-            myPen = new Pen(Color.Red);
-            checkedPen = new Pen(Color.Red, 1); 
+            myPen = new Pen(Color.Black);
+            checkedPen = new Pen(Color.Red, 3); 
             myPen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
             myPen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
 
@@ -98,9 +158,9 @@ namespace OOP1
             cmbbShapes.SelectedIndex = 0;
             arrList = typeList.ToArray<Type>();
 
-            shapeList.Add(new Rect(250, 250, 100, 150, Color.Brown.ToArgb(), 7));
-            shapeList.Add(new Rect(200, 200, 350, 200, Color.Orange.ToArgb(), 7));
-            shapeList.Add(new Triangle(200, 50, 350, 150, Color.Red.ToArgb(), 7));
+            //shapeList.Add(new Rect(250, 250, 100, 150, Color.Brown.ToArgb(), 7));
+            //shapeList.Add(new Rect(200, 200, 350, 200, Color.Orange.ToArgb(), 7));
+            //shapeList.Add(new Triangle(200, 50, 350, 150, Color.Red.ToArgb(), 7));
             RefreshFigureList();
         }
 
@@ -210,7 +270,9 @@ namespace OOP1
                     }
 
                     DrawShapes();
-                    shapeCurr.Draw(this, myPen);
+                    shapeCurr.Draw(this, myPen, g);
+                    GetPictureBox().Image = bmp;
+
                 }
             }
         }
@@ -237,7 +299,8 @@ namespace OOP1
                 shapeCurr.PenWidth = currPenWidth;
 
                 DrawShapes();
-                shapeCurr.Draw(this, myPen);
+                shapeCurr.Draw(this, myPen, g);
+                GetPictureBox().Image = bmp;
 
                 shapeList.Add(shapeCurr);
                 RefreshFigureList();
@@ -268,7 +331,7 @@ namespace OOP1
             {
                 myPen.Color = Color.FromArgb(shape.Color);
                 myPen.Width = shape.PenWidth;
-                shape.Draw(this, myPen);
+                shape.Draw(this, myPen, g);
             }
             myPen.Width = currPenWidth;
             myPen.Color = Color.FromArgb(currColor);
@@ -505,6 +568,37 @@ namespace OOP1
             if (MyDialog.ShowDialog() == DialogResult.OK)
                 tbColor.BackColor = MyDialog.Color;
             checkedShape.Color = MyDialog.Color.ToArgb();
+        }
+
+        private void toolStripTextBox1_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog.ShowDialog() == DialogResult.Cancel)
+                return;
+            string filename = openFileDialog.FileName;
+
+            Type type = shapeList.GetType();
+            XmlSerializer formatter = new XmlSerializer(typeof(List<Shape>), arrList);
+            using (FileStream fs = new FileStream(filename, FileMode.OpenOrCreate))
+            {
+                shapeList.Clear();
+                shapeList = (List<Shape>)formatter.Deserialize(fs);
+            }
+            DrawShapes();
+            RefreshFigureList();
+        }
+
+        private void toolStripTextBox2_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog.ShowDialog() == DialogResult.Cancel)
+                return;
+            string filename = saveFileDialog.FileName + ".xml";
+
+            Type type = shapeList.GetType();
+            XmlSerializer formatter = new XmlSerializer(typeof(List<Shape>), arrList);
+            using (FileStream fs = new FileStream(filename, FileMode.Create))
+            {
+                formatter.Serialize(fs, shapeList);
+            }
         }
     }
 }

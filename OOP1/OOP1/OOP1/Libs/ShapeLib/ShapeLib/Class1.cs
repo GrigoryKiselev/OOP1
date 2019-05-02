@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml.Serialization;
-using System.Drawing;
 
 namespace Class1
 {
@@ -23,7 +24,7 @@ namespace Class1
         public virtual void Calculate(int x1, int y1, int width, int height) { }
         public virtual void Calculate(Point from, Point to) { }
 
-        public virtual void Draw(Form_Kiselev_Paint form, Pen pen) { }
+        public virtual void Draw(Form form, Pen pen, Graphics g) { }
         public abstract Shape FactoryMethod(int x1, int y1, int width, int height, int color, int penWidth);
 
         public void SelectFigure() { }
