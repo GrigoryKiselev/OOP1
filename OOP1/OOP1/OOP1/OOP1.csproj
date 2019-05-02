@@ -53,6 +53,8 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="IEditable.cs" />
+    <Compile Include="ISelectable.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="Pencil.cs" />
     <Compile Include="Pentagon.cs" />
@@ -61,6 +63,7 @@
     <Compile Include="Rect.cs" />
     <Compile Include="Rhombus.cs" />
     <Compile Include="Shape.cs" />
+    <Compile Include="ShapeFactory.cs" />
     <Compile Include="Star.cs" />
     <Compile Include="Triangle.cs" />
     <EmbeddedResource Include="Form1.resx">

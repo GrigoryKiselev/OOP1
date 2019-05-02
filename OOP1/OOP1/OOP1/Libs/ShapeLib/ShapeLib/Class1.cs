@@ -4,13 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Drawing;
 using System.Xml.Serialization;
+using System.Drawing;
 
-namespace OOP1
+namespace Class1
 {
-    [Serializable]
-    public abstract class Shape 
+    public abstract class Shape
     {
 
         public int X1 { get; set; }
@@ -19,12 +18,15 @@ namespace OOP1
         public int Height { get; set; }
         public int PenWidth { get; set; }
         public int Color { get; set; }
-        public List<float[]> pointList= new List<float[]>();
-
+        public List<float[]> pointList = new List<float[]>();
+        
         public virtual void Calculate(int x1, int y1, int width, int height) { }
         public virtual void Calculate(Point from, Point to) { }
-        
+
         public virtual void Draw(Form_Kiselev_Paint form, Pen pen) { }
         public abstract Shape FactoryMethod(int x1, int y1, int width, int height, int color, int penWidth);
+
+        public void SelectFigure() { }
     }
 }
+

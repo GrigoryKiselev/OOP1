@@ -8,7 +8,7 @@ using System.Drawing;
 namespace OOP1
 {
     [Serializable]
-    public class Star : Shape
+    public class Star : Shape, ISelectable, IEditable
     {
         public List<Point> points = new List<Point>();
 
@@ -63,7 +63,18 @@ namespace OOP1
         {
             return new Star(x1, y1, width, height, color, penWidth);
         }
-    }
 
-    
+        public int GetX1() { return X1; }
+        public int GetY1() { return Y1; }
+        public int GetWidth() { return Width; }
+        public int GetHeight() { return Height; }
+        public int GetColor() { return Color; }
+        public int GetPenWidth() { return PenWidth; }
+
+        public bool isEditable()
+        {
+            return true;
+        }
+    } 
+
 }

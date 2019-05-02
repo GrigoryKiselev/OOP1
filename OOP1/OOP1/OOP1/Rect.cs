@@ -8,7 +8,7 @@ using System.Drawing;
 namespace OOP1
 {
     [Serializable]
-    public class Rect : Shape
+    public class Rect : Shape, ISelectable, IEditable
     {
         public Rect(int x1, int y1, int width, int height, int color, int penWidth) 
         {
@@ -45,5 +45,19 @@ namespace OOP1
         {
             return new Rect(x1, y1, width, height, color, penWidth);
         }
+
+        public int GetX1() { return X1; }
+        public int GetY1() { return Y1; }
+        public int GetWidth() { return Width; }
+        public int GetHeight() { return Height; }
+        public int GetColor() { return Color; }
+        public int GetPenWidth() { return PenWidth; }
+
+        public bool isEditable()
+        {
+            return true;
+        }
+
+
     }
 }

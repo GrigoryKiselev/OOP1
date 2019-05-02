@@ -8,7 +8,7 @@ using System.Drawing;
 namespace OOP1
 {
     [Serializable]
-    public class Triangle : Shape
+    public class Triangle : Shape, ISelectable, IEditable
     {
         public Triangle(int x1, int y1, int width, int height, int color, int penWidth)
         {
@@ -43,6 +43,18 @@ namespace OOP1
         public override Shape FactoryMethod(int x1, int y1, int width, int height, int color, int penWidth)
         {
             return new Triangle(x1, y1, width, height, color, penWidth);
+        }
+
+        public int GetX1() { return X1; }
+        public int GetY1() { return Y1; }
+        public int GetWidth() { return Width; }
+        public int GetHeight() { return Height; }
+        public int GetColor() { return Color; }
+        public int GetPenWidth() { return PenWidth; }
+
+        public bool isEditable()
+        {
+            return true;
         }
     }
 }

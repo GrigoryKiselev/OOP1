@@ -66,6 +66,8 @@
             this.lblCol = new System.Windows.Forms.Label();
             this.lblPenW = new System.Windows.Forms.Label();
             this.tbColor = new System.Windows.Forms.Button();
+            this.lblFigureList = new System.Windows.Forms.Label();
+            this.cmbbShapes = new System.Windows.Forms.ComboBox();
             this.gbFigures.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
@@ -257,7 +259,7 @@
             // 
             this.picture.BackColor = System.Drawing.Color.White;
             this.picture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picture.Location = new System.Drawing.Point(144, 21);
+            this.picture.Location = new System.Drawing.Point(146, 65);
             this.picture.Name = "picture";
             this.picture.Size = new System.Drawing.Size(673, 488);
             this.picture.TabIndex = 0;
@@ -441,12 +443,31 @@
             this.tbColor.UseVisualStyleBackColor = false;
             this.tbColor.Click += new System.EventHandler(this.tbColor_Click_1);
             // 
+            // lblFigureList
+            // 
+            this.lblFigureList.AutoSize = true;
+            this.lblFigureList.Location = new System.Drawing.Point(849, 200);
+            this.lblFigureList.Name = "lblFigureList";
+            this.lblFigureList.Size = new System.Drawing.Size(55, 13);
+            this.lblFigureList.TabIndex = 29;
+            this.lblFigureList.Text = "Figure List";
+            // 
+            // cmbbShapes
+            // 
+            this.cmbbShapes.FormattingEnabled = true;
+            this.cmbbShapes.Location = new System.Drawing.Point(146, 18);
+            this.cmbbShapes.Name = "cmbbShapes";
+            this.cmbbShapes.Size = new System.Drawing.Size(163, 21);
+            this.cmbbShapes.TabIndex = 30;
+            // 
             // Form_Kiselev_Paint
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.OldLace;
             this.ClientSize = new System.Drawing.Size(999, 523);
+            this.Controls.Add(this.cmbbShapes);
+            this.Controls.Add(this.lblFigureList);
             this.Controls.Add(this.tbColor);
             this.Controls.Add(this.tbPenWidth);
             this.Controls.Add(this.lblPenW);
@@ -527,6 +548,8 @@
         private System.Windows.Forms.Label lblCol;
         private System.Windows.Forms.Label lblPenW;
         private System.Windows.Forms.Button tbColor;
+        private System.Windows.Forms.Label lblFigureList;
+        private System.Windows.Forms.ComboBox cmbbShapes;
     }
 }
 
