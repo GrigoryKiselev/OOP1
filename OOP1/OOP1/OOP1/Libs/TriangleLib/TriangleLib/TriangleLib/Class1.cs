@@ -39,12 +39,12 @@ using System.Windows.Forms;
             }
         }
 
-        public override Shape FactoryMethod(int x1, int y1, int width, int height, int color, int penWidth)
+        public override Shape FactoryMethod()
         {
-            return new Triangle(x1, y1, width, height, color, penWidth);
+            return new Triangle();
         }
 
-        public int GetX1() { return X1; }
+    public int GetX1() { return X1; }
         public int GetY1() { return Y1; }
         public int GetWidth() { return Width; }
         public int GetHeight() { return Height; }

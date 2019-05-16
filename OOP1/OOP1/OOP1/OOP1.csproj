@@ -62,7 +62,7 @@
     </Reference>
     <Reference Include="ShapeLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libs\RectLib\Rect\Rect\bin\Debug\ShapeLib.dll</HintPath>
+      <HintPath>Libs\ShapeLib\ShapeLib\bin\Debug\ShapeLib.dll</HintPath>
     </Reference>
     <Reference Include="Star">
       <HintPath>Libs\StarLib\Star\Star\bin\Debug\Star.dll</HintPath>
@@ -91,6 +91,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SelectedShape.cs" />
     <Compile Include="ShapeFactory.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

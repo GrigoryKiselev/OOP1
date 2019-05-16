@@ -46,9 +46,9 @@ using System.Windows.Forms;
             g.DrawLine(pen, points[0], points[1]);
         }
 
-        public override Shape FactoryMethod(int x1, int y1, int width, int height, int color, int penWidth)
+        public override Shape FactoryMethod()
         {
-            return new Line(x1, y1, width, height, color, penWidth);
+            return new Line();
         }
     }
 

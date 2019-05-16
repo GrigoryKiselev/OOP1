@@ -40,9 +40,9 @@ using System.Windows.Forms;
             }
         }
 
-        public override Shape FactoryMethod(int x1, int y1, int width, int height, int color, int penWidth)
+        public override Shape FactoryMethod()
         {
-            return new Rect(x1, y1, width, height, color, penWidth);
+            return new Rect();
         }
 
         public int GetX1() { return X1; }

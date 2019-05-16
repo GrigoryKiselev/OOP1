@@ -55,9 +55,9 @@ using System.Windows.Forms;
 
         }
 
-        public override Shape FactoryMethod(int x1, int y1, int width, int height, int color, int penWidth)
+        public override Shape FactoryMethod()
         {
-            return new Pencil(x1, y1, width, height, color, penWidth);
+            return new Pencil();
         }
     }
 

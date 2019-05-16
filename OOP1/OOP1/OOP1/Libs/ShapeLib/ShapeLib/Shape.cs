@@ -23,9 +23,7 @@ using System.Xml.Serialization;
         public virtual void Calculate(Point from, Point to) { }
 
         public virtual void Draw(Form form, Pen pen, Graphics g) { }
-        public abstract Shape FactoryMethod(int x1, int y1, int width, int height, int color, int penWidth);
-
-        public void SelectFigure() { }
+        public abstract Shape FactoryMethod();
     }
 
 

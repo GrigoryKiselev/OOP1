@@ -40,9 +40,9 @@ using System.Windows.Forms;
             }
         }
 
-        public override Shape FactoryMethod(int x1, int y1, int width, int height, int color, int penWidth)
+        public override Shape FactoryMethod()
         {
-            return new Rhombus(x1, y1, width, height, color, penWidth);
+            return new Rhombus();
         }
 
         public int GetX1() { return X1; }

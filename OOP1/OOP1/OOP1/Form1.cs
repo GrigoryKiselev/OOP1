@@ -12,10 +12,12 @@ using System.Xml;
 using System.IO;
 using System.Reflection;
 using PluginInterface;
+
 namespace OOP1
 {
     public partial class Form_Kiselev_Paint : Form
     {
+        List<Shape> Factory = new List<Shape>();
         private List<IPlugin> plugins = new List<IPlugin>();
 
         List<Shape> shapeList = new List<Shape>();
@@ -24,7 +26,7 @@ namespace OOP1
         Type[] arrList;
 
         Shape shapeCurr;
-        Shape checkedShape = new Rect();
+        SelectedShape checkedShape = new SelectedShape();
         int currColor = Color.Black.ToArgb();
         int currPenWidth = 1;
 
@@ -122,6 +124,38 @@ namespace OOP1
             //    shapeList.Add((Shape)lobject);
             //}
 
+
+            //Type ourtype = typeof(Shape); // Базовый тип
+            //IEnumerable<Type> list = Assembly.GetAssembly(ourtype).GetTypes().Where(type => type.IsSubclassOf(ourtype));  // using System.Linq
+            //IEnumerable<Type> list1 = Assembly.GetAssembly(ourtype).ExportedTypes.Where(t => ourtype.IsAssignableFrom(t));
+            //IEnumerable<Type> list2 = Assembly.GetAssembly(ourtype).ExportedTypes.Where(t => t.BaseType == ourtype);
+
+
+            //foreach (Type itm in list)
+            //{
+            //    ourtype = itm;
+            //    //   Factory.Add(itm);
+            //}
+
+            //foreach (Type itm in list1)
+            //{
+            //    ourtype = itm;
+            //    //   Factory.Add(itm);
+            //}
+
+            //foreach (Type itm in list2)
+            //{
+            //    ourtype = itm;
+            //    //   Factory.Add(itm);
+            //}
+
+            List<Type> types = new List<Type>();
+            foreach (Type t in typeof(Shape).Assembly.GetExportedTypes())
+            {
+                types.Add(t);
+            }
+
+
             bmp = new Bitmap(picture.Width, picture.Height);
             g = Graphics.FromImage(bmp);
             myBrush = new SolidBrush(Color.Red);
@@ -157,10 +191,7 @@ namespace OOP1
 
             cmbbShapes.SelectedIndex = 0;
             arrList = typeList.ToArray<Type>();
-
-            //shapeList.Add(new Rect(250, 250, 100, 150, Color.Brown.ToArgb(), 7));
-            //shapeList.Add(new Rect(200, 200, 350, 200, Color.Orange.ToArgb(), 7));
-            //shapeList.Add(new Triangle(200, 50, 350, 150, Color.Red.ToArgb(), 7));
+            
             RefreshFigureList();
         }
 
@@ -470,29 +501,6 @@ namespace OOP1
 
         private void lbFigures_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //checkedShape = (Shape)lbFigures.SelectedItem;
-            //intf = checkedShape;
-
-            //checkedRectangle.X = checkedShape.X1;
-            //checkedRectangle.Y = checkedShape.Y1;
-            //checkedRectangle.Width = checkedShape.Width;
-            //checkedRectangle.Height = checkedShape.Height;
-            //DrawShapes();
-            //g.DrawRectangle(checkedPen, checkedRectangle);
-            //GetPictureBox().Image = bmp;
-
-            //tbX.Clear();
-            //tbY.Clear();
-            //tbH.Clear();
-            //tbW.Clear();
-            //tbPenWidth.Clear();
-
-            //tbX.AppendText(checkedShape.X1.ToString());
-            //tbY.AppendText(checkedShape.Y1.ToString());
-            //tbW.AppendText(checkedShape.Width.ToString());
-            //tbH.AppendText(checkedShape.Height.ToString());
-            //tbColor.BackColor = Color.FromArgb(checkedShape.Color);
-            //tbPenWidth.AppendText(checkedShape.PenWidth.ToString()); 
                                     
             try
             {
@@ -567,22 +575,61 @@ namespace OOP1
             MyDialog.ShowHelp = true;
             if (MyDialog.ShowDialog() == DialogResult.OK)
                 tbColor.BackColor = MyDialog.Color;
-            checkedShape.Color = MyDialog.Color.ToArgb();
-        }
+        }      
 
         private void toolStripTextBox1_Click(object sender, EventArgs e)
         {
             if (openFileDialog.ShowDialog() == DialogResult.Cancel)
                 return;
             string filename = openFileDialog.FileName;
+            shapeList.Clear();
 
-            Type type = shapeList.GetType();
-            XmlSerializer formatter = new XmlSerializer(typeof(List<Shape>), arrList);
+            string textFromFile;
+            XmlSerializer formatter = new XmlSerializer(typeof(Shape), arrList);
+
             using (FileStream fs = new FileStream(filename, FileMode.OpenOrCreate))
             {
-                shapeList.Clear();
-                shapeList = (List<Shape>)formatter.Deserialize(fs);
+                // преобразуем строку в байты
+                byte[] array = new byte[fs.Length];
+                // считываем данные
+                fs.Read(array, 0, array.Length);
+                // декодируем байты в строку
+                textFromFile = Encoding.Default.GetString(array);
             }
+
+            while (textFromFile != "")
+            {
+                
+                int startIndex = textFromFile.IndexOf("<?xml");
+                textFromFile = textFromFile.Remove(0, 5+startIndex);
+                int endIndex = textFromFile.IndexOf("/Shape");
+                endIndex += 7;
+                string newstr = "<?xml" + textFromFile.Substring(startIndex, endIndex);
+                textFromFile = textFromFile.Remove(0, endIndex);
+
+                string bufFile = @"D:\4курс\ООП\Lab1\OOP1\OOP1\OOP1\bin\Debug\bufFile.xml";
+                File.WriteAllText(bufFile, newstr);
+
+
+                using (FileStream fs1 = new FileStream(bufFile, FileMode.OpenOrCreate))
+                {
+                    try
+                    {
+                        Shape shape;
+                        shape = (Shape)formatter.Deserialize(fs1);
+                        shapeList.Add(shape);
+                    }
+                    catch (Exception dsException)
+                    {
+                        string exMsg;
+                        exMsg = $"Исключение: {dsException.Source}";
+                       // MessageBox.Show(exMsg);
+                    } 
+                }
+            }
+                    
+            
+           
             DrawShapes();
             RefreshFigureList();
         }
@@ -592,12 +639,14 @@ namespace OOP1
             if (saveFileDialog.ShowDialog() == DialogResult.Cancel)
                 return;
             string filename = saveFileDialog.FileName + ".xml";
-
-            Type type = shapeList.GetType();
-            XmlSerializer formatter = new XmlSerializer(typeof(List<Shape>), arrList);
-            using (FileStream fs = new FileStream(filename, FileMode.Create))
+            
+            XmlSerializer formatter = new XmlSerializer(typeof(Shape), arrList);
+            using (FileStream fs = new FileStream(filename, FileMode.OpenOrCreate))
             {
-                formatter.Serialize(fs, shapeList);
+                foreach (var shape in shapeList)
+                {
+                    formatter.Serialize(fs, shape);
+                }
             }
         }
     }
