@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PluginInterface">
+      <HintPath>..\..\..\PluginIntf\PluginInterface\PluginInterface\bin\Debug\PluginInterface.dll</HintPath>
+    </Reference>
     <Reference Include="ShapeLib">
       <HintPath>..\..\RectLib\Rect\Rect\bin\Debug\ShapeLib.dll</HintPath>
     </Reference>

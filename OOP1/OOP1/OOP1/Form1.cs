@@ -11,7 +11,6 @@ using System.Xml.Serialization;
 using System.Xml;
 using System.IO;
 using System.Reflection;
-using PluginInterface;
 
 namespace OOP1
 {
@@ -41,6 +40,7 @@ namespace OOP1
         }
 
         bool isMouseDown;
+        bool isPluginsNull;
 
         public Bitmap bmp { get; set; }
         public Graphics g { get; set; }
@@ -56,10 +56,10 @@ namespace OOP1
         public Form_Kiselev_Paint()
         {
             InitializeComponent();
-            Init();
-            Form1_Paint();
             //обновляем список плагинов
             RefreshPlugins();
+            Init();
+            Form1_Paint();            
         }
 
         //путь к папке с плагинами
@@ -69,7 +69,11 @@ namespace OOP1
         
         private void RefreshPlugins()
         {
+            isPluginsNull = true;
+            arrList = null;
+            typeList.Clear();
             plugins.Clear();
+            cmbbShapes.Items.Clear();
 
             DirectoryInfo pluginDirectory = new DirectoryInfo(pluginPath);
             if (!pluginDirectory.Exists)
@@ -80,7 +84,7 @@ namespace OOP1
             foreach (var file in pluginFiles)
             {
                 //загружаем сборку
-                Assembly asm = Assembly.LoadFrom(file);
+                Assembly asm = Assembly.Load(File.ReadAllBytes(file));
                 //ищем типы, имплементирующие наш интерфейс IPlugin,
                 //чтобы не захватить лишнего
                 var types = asm.GetTypes().
@@ -92,70 +96,31 @@ namespace OOP1
                 {
                     var plugin = asm.CreateInstance(type.FullName) as IPlugin;
                     plugins.Add(plugin);
-                }
+                }                
+            }
+
+            foreach (var plugin in plugins)
+            {
+                cmbbShapes.Items.Add(plugin.Load(this).GetType());
+                typeList.Add(plugin.Load(this).GetType());
+            }
+            arrList = typeList.ToArray<Type>();
+
+            if (plugins.Count > 0)
+            {
+                isPluginsNull = false;
+                cmbbShapes.SelectedItem = cmbbShapes.Items[0];
             }
         }
 
-        private void Init ()
+        private void Init()
         {
-            //    AssemblyName asm = AssemblyName.GetAssemblyName("Triangle.cs");
-            //    Type classobject = asm.GetType("Triangle");
-            // cmbbShapes.Items.Add(classobject);
-            ////Assembly a = Assembly.Load("Rect");
-            ////Object o = a.CreateInstance("Rect");
-            ////Type t = a.GetType("Rect");
-            ////Type[] tMas = new Type[1];
-            ////tMas[0] = t;
-
-            ////Object[] test = new Object[6];
-            ////test[0] = 1;
-            ////test[1] = 1;
-            ////test[2] = 100;
-            ////test[3] = 100;
-            ////test[4] = -65000;
-            ////test[5] = 5;
-
-            //ConstructorInfo constructorInfo = t.GetConstructor(
-            //              new[] { typeof(int), typeof(int), typeof(int), typeof(int), typeof(int), typeof(int) });
-            //if (constructorInfo != null)
-            //{
-            //    object[] lobject = new object[] { 1, 2, 3 };
-            //    constructorInfo.Invoke(lobject);
-            //    shapeList.Add((Shape)lobject);
-            //}
-
-
-            //Type ourtype = typeof(Shape); // Базовый тип
-            //IEnumerable<Type> list = Assembly.GetAssembly(ourtype).GetTypes().Where(type => type.IsSubclassOf(ourtype));  // using System.Linq
-            //IEnumerable<Type> list1 = Assembly.GetAssembly(ourtype).ExportedTypes.Where(t => ourtype.IsAssignableFrom(t));
-            //IEnumerable<Type> list2 = Assembly.GetAssembly(ourtype).ExportedTypes.Where(t => t.BaseType == ourtype);
-
-
-            //foreach (Type itm in list)
-            //{
-            //    ourtype = itm;
-            //    //   Factory.Add(itm);
-            //}
-
-            //foreach (Type itm in list1)
-            //{
-            //    ourtype = itm;
-            //    //   Factory.Add(itm);
-            //}
-
-            //foreach (Type itm in list2)
-            //{
-            //    ourtype = itm;
-            //    //   Factory.Add(itm);
-            //}
-
             List<Type> types = new List<Type>();
             foreach (Type t in typeof(Shape).Assembly.GetExportedTypes())
             {
                 types.Add(t);
             }
-
-
+            
             bmp = new Bitmap(picture.Width, picture.Height);
             g = Graphics.FromImage(bmp);
             myBrush = new SolidBrush(Color.Red);
@@ -164,34 +129,8 @@ namespace OOP1
             myPen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
             myPen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
 
-            shapeCurr = new Rect();
-            cmbbShapes.Items.Add(shapeCurr);
-            typeList.Add(shapeCurr.GetType());
-            shapeCurr = new Pentagon();
-            cmbbShapes.Items.Add(shapeCurr);
-            typeList.Add(shapeCurr.GetType());
-            shapeCurr = new Rhombus();
-            cmbbShapes.Items.Add(shapeCurr);
-            typeList.Add(shapeCurr.GetType());
-            shapeCurr = new Star();
-            cmbbShapes.Items.Add(shapeCurr);
-            typeList.Add(shapeCurr.GetType());
-            shapeCurr = new Ellipse();
-            cmbbShapes.Items.Add(shapeCurr);
-            typeList.Add(shapeCurr.GetType());
-            shapeCurr = new Triangle();
-            cmbbShapes.Items.Add(shapeCurr);
-            typeList.Add(shapeCurr.GetType());
-            shapeCurr = new Line();
-            cmbbShapes.Items.Add(shapeCurr);
-            typeList.Add(shapeCurr.GetType());
-            shapeCurr = new Pencil();
-            cmbbShapes.Items.Add(shapeCurr);
-            typeList.Add(shapeCurr.GetType());
-
-            cmbbShapes.SelectedIndex = 0;
             arrList = typeList.ToArray<Type>();
-            
+
             RefreshFigureList();
         }
 
@@ -203,14 +142,17 @@ namespace OOP1
 
         private void picture_MouseDown(object sender, MouseEventArgs e)
         {
-            isMouseDown = true;
-            if (rbFigure.Checked)
+            if (!isPluginsNull)
             {
-                Figure_MouseDown(sender, e);
-            }
-            else if (rbCursor.Checked)
-            {
-                Cursor_MouseDown(sender, e);
+                isMouseDown = true;
+                if (rbFigure.Checked)
+                {
+                    Figure_MouseDown(sender, e);
+                }
+                else if (rbCursor.Checked)
+                {
+                    Cursor_MouseDown(sender, e);
+                }
             }
         }
 
@@ -228,14 +170,17 @@ namespace OOP1
 
         private void picture_MouseUp(object sender, MouseEventArgs e)
         {
-            isMouseDown = false;
-            if (rbFigure.Checked)
+            if (!isPluginsNull)
             {
-                Figure_MouseUp(sender, e);
-            }
-            else if (rbCursor.Checked)
-            {
-                Cursor_MouseUp(sender, e);
+                isMouseDown = false;
+                if (rbFigure.Checked)
+                {
+                    Figure_MouseUp(sender, e);
+                }
+                else if (rbCursor.Checked)
+                {
+                    Cursor_MouseUp(sender, e);
+                }
             }
         }
 
@@ -248,8 +193,9 @@ namespace OOP1
             
             x1 = e.Location.X;
             y1 = e.Location.Y;
-
-            shapeCurr = ShapeFactory.GetShape(cmbbShapes.SelectedIndex);
+                        
+            shapeCurr = plugins[cmbbShapes.SelectedIndex].Load(this);
+            
             shapeCurr.X1 = x1;
             shapeCurr.Y1 = y1;
         }
@@ -628,8 +574,6 @@ namespace OOP1
                 }
             }
                     
-            
-           
             DrawShapes();
             RefreshFigureList();
         }
@@ -648,6 +592,17 @@ namespace OOP1
                     formatter.Serialize(fs, shape);
                 }
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            RefreshPlugins();
+            RefreshFigureList();
+        }
+
+        private void cmbbShapes_Click(object sender, EventArgs e)
+        {
+           // RefreshPlugins();
         }
     }
 }

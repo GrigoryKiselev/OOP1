@@ -37,6 +37,9 @@
     <Reference Include="ISelectable">
       <HintPath>..\..\..\..\SelectableIntf\ISelectable\ISelectable\bin\Debug\ISelectable.dll</HintPath>
     </Reference>
+    <Reference Include="PluginInterface">
+      <HintPath>..\..\..\..\PluginIntf\PluginInterface\PluginInterface\bin\Debug\PluginInterface.dll</HintPath>
+    </Reference>
     <Reference Include="ShapeLib">
       <HintPath>..\..\..\ShapeLib\ShapeLib\bin\Debug\ShapeLib.dll</HintPath>
     </Reference>

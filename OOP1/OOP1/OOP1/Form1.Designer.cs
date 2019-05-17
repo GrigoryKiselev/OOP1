@@ -63,6 +63,7 @@
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripTextBox2 = new System.Windows.Forms.ToolStripTextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnRefresh = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.tbWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.gbTools.SuspendLayout();
@@ -71,7 +72,7 @@
             // 
             // tbWidth
             // 
-            this.tbWidth.Location = new System.Drawing.Point(337, 37);
+            this.tbWidth.Location = new System.Drawing.Point(403, 37);
             this.tbWidth.Maximum = 40;
             this.tbWidth.Minimum = 1;
             this.tbWidth.Name = "tbWidth";
@@ -85,7 +86,7 @@
             // 
             this.cbShift.AutoSize = true;
             this.cbShift.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.cbShift.Location = new System.Drawing.Point(276, 35);
+            this.cbShift.Location = new System.Drawing.Point(342, 35);
             this.cbShift.Name = "cbShift";
             this.cbShift.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.cbShift.Size = new System.Drawing.Size(52, 20);
@@ -98,7 +99,7 @@
             // 
             this.lblWidth.AutoSize = true;
             this.lblWidth.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblWidth.Location = new System.Drawing.Point(343, 24);
+            this.lblWidth.Location = new System.Drawing.Point(409, 24);
             this.lblWidth.Name = "lblWidth";
             this.lblWidth.Size = new System.Drawing.Size(81, 16);
             this.lblWidth.TabIndex = 8;
@@ -107,7 +108,7 @@
             // btnColor
             // 
             this.btnColor.BackColor = System.Drawing.Color.Black;
-            this.btnColor.Location = new System.Drawing.Point(440, 40);
+            this.btnColor.Location = new System.Drawing.Point(506, 40);
             this.btnColor.Name = "btnColor";
             this.btnColor.Size = new System.Drawing.Size(46, 23);
             this.btnColor.TabIndex = 9;
@@ -118,7 +119,7 @@
             // 
             this.lblColor.AutoSize = true;
             this.lblColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblColor.Location = new System.Drawing.Point(442, 24);
+            this.lblColor.Location = new System.Drawing.Point(508, 24);
             this.lblColor.Name = "lblColor";
             this.lblColor.Size = new System.Drawing.Size(40, 16);
             this.lblColor.TabIndex = 10;
@@ -179,7 +180,7 @@
             this.gbTools.Controls.Add(this.rbCursor);
             this.gbTools.Controls.Add(this.rbFigure);
             this.gbTools.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.gbTools.Location = new System.Drawing.Point(501, 24);
+            this.gbTools.Location = new System.Drawing.Point(567, 24);
             this.gbTools.Name = "gbTools";
             this.gbTools.Size = new System.Drawing.Size(187, 44);
             this.gbTools.TabIndex = 14;
@@ -340,6 +341,7 @@
             this.cmbbShapes.Name = "cmbbShapes";
             this.cmbbShapes.Size = new System.Drawing.Size(163, 21);
             this.cmbbShapes.TabIndex = 30;
+            this.cmbbShapes.Click += new System.EventHandler(this.cmbbShapes_Click);
             // 
             // lblFigure
             // 
@@ -394,12 +396,23 @@
             this.label1.TabIndex = 33;
             this.label1.Text = "Edit Menu";
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(257, 37);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(52, 23);
+            this.btnRefresh.TabIndex = 35;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form_Kiselev_Paint
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.OldLace;
             this.ClientSize = new System.Drawing.Size(999, 523);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.picture);
             this.Controls.Add(this.lblFigure);
@@ -480,6 +493,7 @@
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }
 
